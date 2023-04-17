@@ -22,4 +22,17 @@
 
 .account-image:hover {
   opacity: 0.75;
+  scale: 110%;
+}
+
+.heart-icon {
+  margin-left: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.heart-icon:hover {
+  color: black;
+  scale: 115%;
 }

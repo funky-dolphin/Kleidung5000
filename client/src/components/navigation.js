@@ -11,25 +11,39 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles.css";
 import profileImage from "../testpp.png";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-function App() {
+function Navigation() {
+  const navigate = useNavigate();
   // click functions
   const handleLoginClick = () => {
-    console.log("Login clicked");
+    navigate("/login");
   };
 
   const handleRegisterClick = () => {
-    console.log("Register clicked");
+    navigate("/register");
   };
 
   const handleProfileClick = () => {
     console.log("Profile clicked");
   };
 
+  const handleHomeClick = () => {
+    navigate("/");
+  };
+
+  const handleLikesClick = () => {
+    navigate("/likes");
+  };
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">KLEIDUNG5000</Navbar.Brand>
+        <Navbar.Brand onClick={handleHomeClick} href="#home">
+          KLEIDUNG5000
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
@@ -87,6 +101,11 @@ function App() {
             </div>
             <Button variant="outline-success">Search</Button>
             <FormControl type="text" placeholder="Find your kleidung" />
+            <FontAwesomeIcon
+              className="heart-icon"
+              icon={faHeart}
+              onClick={handleLikesClick}
+            />
           </Form>
           <Image
             className="account-image"
@@ -94,7 +113,12 @@ function App() {
             src={profileImage}
             alt="User Profile"
             roundedCircle
-            style={{ width: "40px", height: "40px", marginLeft: "15px" }}
+            style={{
+              width: "40px",
+              height: "40px",
+              marginLeft: "15px",
+              marginRight: "15px",
+            }}
           />
         </Navbar.Collapse>
       </Navbar>
@@ -102,4 +126,4 @@ function App() {
   );
 }
 
-export default App;
+export default Navigation;
