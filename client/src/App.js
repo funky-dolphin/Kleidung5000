@@ -1,5 +1,5 @@
 import React from "react";
-import Navigation from "./components/Navigation";
+import Navigation from "./components/navigation";
 import Featured from "./components/Featured";
 import ShopPage from "../src/components/ShopPage";
 import Login from "../src/components/Login";

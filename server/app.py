@@ -1,6 +1,6 @@
 from flask import request, make_response, jsonify, session
 from flask_restful import Resource, Api
-from models import db, User, Type, SubType, Brand, Transaction, Size, Message
+from models import db, User, Type, SubType, Brand, Transaction, Size, Message, FavoriteItem
 from config import app, bcrypt
 from models import Item
 
@@ -254,6 +254,33 @@ class ItemsById(Resource):
     
 api.add_resource(ItemsById, '/items/<int:id>')
 
+class ItemsByOwner(Resource):
+    def get(self,id):
+        items = Item.query.filter_by(owner_id = id).all()
+        items_dict = [item.to_dict() for item in items]
+        return make_response(items_dict,200)
+    
+api.add_resource(ItemsByOwner, '/itemsbyowner/<int:id>')
+
+class FavoriteItems(Resource):
+    def post(self):
+        data = request.get_json()
+        favorite_item = FavoriteItem(
+            item_id = data['item_id'],
+            user_id = data['user_id'], 
+        )
+        db.session.add(favorite_item)
+        db.session.commit()
+        return make_response(favorite_item.to_dict(), 201)
+api.add_resource(FavoriteItems, '/favoriteitems')
+
+class FavoriteItemsByOwner(Resource):
+    def get(self,id):
+        items = FavoriteItem.query.filter_by(user_id = id).all()
+        items_dict = [item.to_dict() for item in items]
+        return make_response(items_dict,200)
+    
+api.add_resource(FavoriteItemsByOwner, '/favoriteitemsbyowner/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)    
