@@ -22,6 +22,8 @@ class User(db.Model, SerializerMixin):
     transactions = db.relationship('Transaction', back_populates = 'users')
     messages = db.relationship('Message', back_populates = 'users')
 
+    serialize_rules = ('-transactions.users', '-messages.users')
+
 
 class Item(db.Model, SerializerMixin): 
     __tablename__ = 'items'

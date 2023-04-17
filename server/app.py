@@ -2,9 +2,9 @@ from flask import Flask, request, make_response, jsonify, session
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
+from flask_bcrypt import Bcrypt
 
 from models import db, User
-
 app = Flask(__name__)
 app.secret_key = b'\xfe\x97\xb3\xc2h\x0b\xd5\xb7\xbbIR\x80b?\xca\xb0'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
