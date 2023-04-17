@@ -68,6 +68,8 @@ class Type(db.Model, SerializerMixin):
 
     items = db.relationship('Item', back_populates='type')
     subtype = db.relationship('SubType', back_populates= 'type')
+
+    serialize_rules = ('-items', '-subtype')
     
     def __repr__(self):
         return f'Type: {self.type}'
@@ -83,6 +85,8 @@ class SubType(db.Model, SerializerMixin):
     type = db.relationship('Type', back_populates = 'subtype')
     items = db.relationship('Item', back_populates='subtype')
 
+    serialize_rules = ('-type', '-items')
+
     def __repr__(self):
         return f'subtype: {self.subtype}'
 
@@ -94,6 +98,8 @@ class Size(db.Model, SerializerMixin):
 
     items = db.relationship('Item', backref='size')
 
+    serialize_rules = ('-items',)
+
     def __repr__(self):
         return f'Size: {self.size}'
 
@@ -104,6 +110,8 @@ class Brand(db.Model, SerializerMixin):
     brand = db.Column(db.String)
 
     items = db.relationship('Item', backref='brand')
+
+    serialize_rules = ('-items',)
 
     def __repr__(self):
         return f'Brand: {self.brand}'
@@ -121,6 +129,8 @@ class Transaction(db.Model, SerializerMixin):
 
     users = db.relationship('User', back_populates = 'transactions')
 
+    serialize_rules = ('-users',)
+
 
 class Message(db.Model, SerializerMixin):
     __tablename__ = 'messages'
@@ -133,6 +143,8 @@ class Message(db.Model, SerializerMixin):
     user_2 = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     users = db.relationship('User', back_populates = 'messages')
+
+    serialize_rules = ('-users',)
 
 
 
