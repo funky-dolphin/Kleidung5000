@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import React from 'react';
-import LaserEffect from './LaserEffect';
-import SoundCloudPlayer from './SoundCloudPlayer';
+import LaserEffect from './components/LaserEffect';
+import SoundCloudPlayer from './components/SoundCloudPlayer';
 import './App.css';
 
 function App() {
