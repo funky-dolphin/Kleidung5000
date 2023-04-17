@@ -1,31 +1,45 @@
-from flask import Flask, request, make_response, jsonify, session
-from flask_cors import CORS
-from flask_migrate import Migrate
-from flask_restful import Api, Resource
-
+from flask import request, make_response, jsonify, session
+from flask_restful import Resource, Api
 from models import db, User
+from config import app, bcrypt
 
-app = Flask(__name__)
-app.secret_key = b'\xfe\x97\xb3\xc2h\x0b\xd5\xb7\xbbIR\x80b?\xca\xb0'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.json.compact = False
 
-CORS(app)
-migrate = Migrate(app, db)
 api = Api(app)
 
-db.init_app(app)
+class Signup(Resource):
+    def post(self):
+        data = request.get_json()
+        new_user = User(
+                name = data['name'],
+                username = data['username'],
+                email_address = data['email_address'],
+                paypal_address = data['paypal_address'],
+                zipcode = data['zipcode'],
+                password_hash = data['_password_hash']
+            )
+        
+        db.session.add(new_user)
+        db.session.commit()
+        
+        response = make_response(new_user.to_dict(), 200)
+        return response
+
+api.add_resource(Signup, '/signup')
 
 class Login(Resource):
-
     def post(self):
-        user = User.query.filter(
-            User.email_address == request.get_json()['email_address']
-        ).first()
-# Unsure if these 'user_id' will be this or just ID based on our models
-        session['user_id'] = user.id
-        return user.to_dict()
+        data = request.get_json()
+        username = data['username']
+        user = User.query.filter(User.username == username).first()
+
+        password = data['password']
+
+        if not user:
+            return {'error': 'Invalid username or password'}, 401
+
+        if user.authenticate(password):
+            session['user_id'] = user.id
+            return user.to_dict(), 200
 
 api.add_resource(Login, '/login')
 
@@ -49,7 +63,4 @@ class Logout(Resource):
 api.add_resource(Logout, '/logout')
 
 if __name__ == '__main__':
-    app.run(port=5555, debug=True)
-
-# b'\xfe\x97\xb3\xc2h\x0b\xd5\xb7\xbbIR\x80b?\xca\xb0'  
-    
+    app.run(port=5555, debug=True)    

@@ -1,30 +1,44 @@
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
+
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.ext.hybrid import hybrid_property
+from config import bcrypt, db, app
 
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
-
-db = SQLAlchemy(metadata=metadata)
+app.secret_key = b'\xfe\x97\xb3\xc2h\x0b\xd5\xb7\xbbIR\x80b?\xca\xb0'
 
 class User(db.Model, SerializerMixin):
     __tablename__='users'
 
     id=db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String, nullable=False)
+    username=db.Column(db.String, nullable=False)
     email_address=db.Column(db.String)
     paypal_address=db.Column(db.String)
     zipcode=db.Column(db.Integer)
+    _password_hash = db.Column(db.String, nullable=False)
 
     transactions = db.relationship('Transaction', back_populates = 'users')
     messages = db.relationship('Message', back_populates = 'users')
 
+    serialize_rules = ('-transactions.users', '-messages.users')
+
+    @hybrid_property
+    def password_hash(self):
+        return self._password_hash
+
+    @password_hash.setter
+    def password_hash(self, password):
+            password_hash = bcrypt.generate_password_hash(password.encode('utf-8'))
+            self._password_hash = password_hash.decode('utf-8')
+
+    def authenticate(self, password):
+         return bcrypt.check_password_hash(
+             self._password_hash, password.encode('utf-8'))
+
+
 
 class Item(db.Model, SerializerMixin): 
-class Item(db.Model, SerializerMixin):
     __tablename__ = 'items'
 
     id = db.Column(db.Integer, primary_key=True)
