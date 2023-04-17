@@ -1,12 +1,19 @@
 from flask import request, make_response, jsonify, session
 from flask_restful import Resource, Api
-from models import db, User
+from models import db, User, Type, SubType, Brand, Transaction, Size, Message
 from config import app, bcrypt
 
 
 api = Api(app)
 
 class Signup(Resource):
+    def get(self):
+        user = User.query.filter(User.id == session.get('user_id')).first()
+        if user:
+            return user.to_dict()
+        else:
+            return {'message': '401: Not Authorized'}, 401
+
     def post(self):
         data = request.get_json()
         new_user = User(
@@ -61,6 +68,141 @@ class Logout(Resource):
         return {'message': '204: No Content'}, 204
 
 api.add_resource(Logout, '/logout')
+
+class Users_By_Id(Resource):
+    def patch(self, id):
+        user = User.query.filter_by(id=id).first()
+        data = request.get_json()
+        
+        if '_password_hash' in data:
+            password_hash = bcrypt.generate_password_hash(data['_password_hash'].encode('utf-8'))
+            data['_password_hash'] = password_hash.decode('utf-8')
+        
+        for attr in data:
+            setattr(user, attr, data[attr])
+        
+        db.session.add(user)
+        db.session.commit()
+
+        response = make_response(user.to_dict(), 202)
+        return response
+
+    def delete(self, id):
+        user = User.query.filter_by(id=id).first()
+        if not user:
+            return make_response({
+                "error": "User not found"
+            }, 404)
+        db.session.delete(user)
+        db.session.commit()
+        return make_response(
+            {"User":"deleted"}, 201
+        )
+    
+api.add_resource(Users_By_Id, '/users/<int:id>')
+
+class Types(Resource):
+    def get(self):
+        types = Type.query.all()
+        type_dict = [type.to_dict()for type in types]
+        return make_response(
+            type_dict,
+            200
+        )
+    
+api.add_resource(Types, '/types')
+
+class SubTypes(Resource):
+    def get(self):
+        subtypes = SubType.query.all()
+        subtype_dict = [subtype.to_dict()for subtype in subtypes]
+        return make_response(
+            subtype_dict,
+            200
+        )
+    
+api.add_resource(SubTypes, '/subtypes')
+
+class Sizes(Resource):
+    def get(self):
+        sizes = Size.query.all()
+        size_dict = [size.to_dict() for size in sizes]
+        return make_response(
+            size_dict,
+            200
+        )
+    
+api.add_resource(Sizes, '/sizes')
+
+class Brands(Resource):
+    def get(self):
+        brands = Brand.query.all()
+        brand_dict = [brand.to_dict() for brand in brands]
+        return make_response(
+            brand_dict,
+            200
+        )
+    
+api.add_resource(Brands, '/brands')
+
+class Transactions(Resource):
+    def get(self):
+        transactions = Transaction.query.all()
+        transaction_dict = [transaction.to_dict() for transaction in transactions]
+        return make_response(
+            transaction_dict,
+            200
+        )
+    
+api.add_resource(Transactions, '/transactions')
+
+class Messages(Resource):
+    def get(self):
+        messages = Message.query.all()
+        message_dict = [message.to_dict() for message in messages]
+        return make_response(
+            message_dict,
+            200
+        )
+    def post(self):
+        data = request.get_json()
+        try:
+            message = Message(
+                message=data['message']
+            )
+
+            db.session.add(message)
+            db.session.commit()
+        except Exception as e:
+            message = {
+                'errors': [e.__str__()]
+            }
+            return make_response(
+                message,
+                422
+            )
+        
+        response = make_response(
+            message.to_dict(),
+            201
+        )
+        return response
+
+api.add_resource(Messages, '/messages')
+
+class Messages_By_Id(Resource):
+    def patch(self, id):
+        message = Message.query.filter_by(id=id).first()
+        data = request.get_json()
+        for attr in data:
+            setattr(message, attr, data[attr])
+        db.session.add(message)
+        db.session.commit()
+
+        response = make_response(message.to_dict(), 202)
+        return response
+
+api.add_resource(Messages_By_Id, '/messages/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)    

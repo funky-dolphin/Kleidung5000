@@ -54,8 +54,6 @@ with app.app_context():
 
     subtypes = [jackets, coats, trenchcoats, tailoring, fur, down, knits, sweatshirts, tshirts, tanks, buttonups]
 
-
-
     print("Creating sizes...")
     xs = Size(size = "XS")
     s = Size(size = "S")
