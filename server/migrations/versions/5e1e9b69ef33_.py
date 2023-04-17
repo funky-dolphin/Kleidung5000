@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 04981b16ad97
+Revision ID: 5e1e9b69ef33
 Revises: 
-Create Date: 2023-04-17 11:49:35.949561
+Create Date: 2023-04-17 15:41:45.421744
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '04981b16ad97'
+revision = '5e1e9b69ef33'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -68,10 +68,10 @@ def upgrade():
     sa.Column('price', sa.Float(), nullable=True),
     sa.Column('for_sale', sa.Boolean(), nullable=True),
     sa.Column('owner_id', sa.Integer(), nullable=True),
-    sa.Column('type_id', sa.String(), nullable=True),
-    sa.Column('subtype_id', sa.String(), nullable=True),
-    sa.Column('size_id', sa.String(), nullable=True),
-    sa.Column('brand_id', sa.String(), nullable=True),
+    sa.Column('type_id', sa.Integer(), nullable=True),
+    sa.Column('subtype_id', sa.Integer(), nullable=True),
+    sa.Column('size_id', sa.Integer(), nullable=True),
+    sa.Column('brand_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['brand_id'], ['brands.id'], name=op.f('fk_items_brand_id_brands')),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], name=op.f('fk_items_owner_id_users')),
     sa.ForeignKeyConstraint(['size_id'], ['sizes.id'], name=op.f('fk_items_size_id_sizes')),

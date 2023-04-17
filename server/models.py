@@ -49,15 +49,16 @@ class Item(db.Model, SerializerMixin):
     name = db.Column(db.String)
     price = db.Column(db.Float)
     for_sale=db.Column(db.Boolean)
-
     owner_id=db.Column(db.Integer, db.ForeignKey('users.id'))
-    type_id = db.Column(db.String, db.ForeignKey('types.id'))
-    subtype_id = db.Column(db.String, db.ForeignKey('subtypes.id'))
-    size_id = db.Column(db.String, db.ForeignKey('sizes.id'))
-    brand_id = db.Column(db.String, db.ForeignKey('brands.id'))
+    type_id = db.Column(db.Integer, db.ForeignKey('types.id'))
+    subtype_id = db.Column(db.Integer, db.ForeignKey('subtypes.id'))
+    size_id = db.Column(db.Integer, db.ForeignKey('sizes.id'))
+    brand_id = db.Column(db.Integer, db.ForeignKey('brands.id'))
 
     type = db.relationship('Type', back_populates = 'items')
     subtype = db.relationship('SubType', back_populates ="items")
+
+    serialize_rules = ('-type', '-subtype', '-brand', '-size')
     
 class Type(db.Model, SerializerMixin):
     __tablename__ = 'types'
