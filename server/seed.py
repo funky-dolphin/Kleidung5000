@@ -5,7 +5,6 @@ from sqlalchemy.orm import sessionmaker
 from app import app
 from models import db, User, Item, Type, SubType, Size, Brand, Transaction, Message
 
-
 with app.app_context():
 
 # This will delete any existing rows
@@ -21,9 +20,9 @@ with app.app_context():
     Message.query.delete()
 
     print("Creating users...")
-    nick=User(name="Nick", email_address ="nick@kleidung5000.com", paypal_address = "nick@kleidung5000.com", zipcode = 10003)
-    finn=User(name="Finn", email_address ="finn@kleidung5000.com", paypal_address = "finn@kleidung5000.com", zipcode = 10004)
-    brett=User(name="Brett", email_address ="brett@kleidung5000.com", paypal_address = "brett@kleidung5000.com", zipcode = 11237)
+    nick=User(name="Nick", username="BDNick69", _password_hash = "123", email_address ="nick@kleidung5000.com", paypal_address = "nick@kleidung5000.com", zipcode = 10003)
+    finn=User(name="Finn", username="finnychinny", _password_hash = "abc", email_address ="finn@kleidung5000.com", paypal_address = "finn@kleidung5000.com", zipcode = 10004)
+    brett=User(name="Brett", username="frkshw", _password_hash = "123password", email_address ="brett@kleidung5000.com", paypal_address = "brett@kleidung5000.com", zipcode = 11237)
     users = [nick, finn, brett]
 
     print("Creating items...")
@@ -54,8 +53,6 @@ with app.app_context():
     buttonups = SubType(subtype = "Button Ups", type_id = 2)
 
     subtypes = [jackets, coats, trenchcoats, tailoring, fur, down, knits, sweatshirts, tshirts, tanks, buttonups]
-
-
 
     print("Creating sizes...")
     xs = Size(size = "XS")
@@ -98,7 +95,8 @@ with app.app_context():
     db.session.commit()
 
     print("Seeding done!")
-    print(outerwear.subtypes[1].subtype)
+    print(i1)
+   
 
     
 

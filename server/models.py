@@ -1,29 +1,44 @@
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
+
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.ext.hybrid import hybrid_property
+from config import bcrypt, db, app
 
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
-
-db = SQLAlchemy(metadata=metadata)
+app.secret_key = b'\xfe\x97\xb3\xc2h\x0b\xd5\xb7\xbbIR\x80b?\xca\xb0'
 
 class User(db.Model, SerializerMixin):
     __tablename__='users'
 
     id=db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String, nullable=False)
+    username=db.Column(db.String, nullable=False)
     email_address=db.Column(db.String)
     paypal_address=db.Column(db.String)
     zipcode=db.Column(db.Integer)
+    _password_hash = db.Column(db.String, nullable=False)
 
     transactions = db.relationship('Transaction', back_populates = 'users')
     messages = db.relationship('Message', back_populates = 'users')
 
+    serialize_rules = ('-transactions.users', '-messages.users')
 
-class Item(db.Model, SerializerMixin):
+    @hybrid_property
+    def password_hash(self):
+        return self._password_hash
+
+    @password_hash.setter
+    def password_hash(self, password):
+            password_hash = bcrypt.generate_password_hash(password.encode('utf-8'))
+            self._password_hash = password_hash.decode('utf-8')
+
+    def authenticate(self, password):
+         return bcrypt.check_password_hash(
+             self._password_hash, password.encode('utf-8'))
+
+
+
+class Item(db.Model, SerializerMixin): 
     __tablename__ = 'items'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -34,17 +49,17 @@ class Item(db.Model, SerializerMixin):
     name = db.Column(db.String)
     price = db.Column(db.Float)
     for_sale=db.Column(db.Boolean)
-
     owner_id=db.Column(db.Integer, db.ForeignKey('users.id'))
-    type_id = db.Column(db.String, db.ForeignKey('types.id'))
-    subtype_id = db.Column(db.String, db.ForeignKey('subtypes.id'))
-    size_id = db.Column(db.String, db.ForeignKey('sizes.id'))
-    brand_id = db.Column(db.String, db.ForeignKey('brands.id'))
+    type_id = db.Column(db.Integer, db.ForeignKey('types.id'))
+    subtype_id = db.Column(db.Integer, db.ForeignKey('subtypes.id'))
+    size_id = db.Column(db.Integer, db.ForeignKey('sizes.id'))
+    brand_id = db.Column(db.Integer, db.ForeignKey('brands.id'))
 
     type = db.relationship('Type', back_populates = 'items')
-    # subtype = db.relationship('Subtype', back_populates='items')
-    subtypes = association_proxy('Type', 'subtypes')
+    subtype = db.relationship('SubType', back_populates ="items")
 
+    serialize_rules = ('-type', '-subtype', '-brand', '-size')
+    
 class Type(db.Model, SerializerMixin):
     __tablename__ = 'types'
 
@@ -52,7 +67,12 @@ class Type(db.Model, SerializerMixin):
     type = db.Column(db.String)
 
     items = db.relationship('Item', back_populates='type')
-    subtypes = db.relationship('SubType', back_populates= 'type')
+    subtype = db.relationship('SubType', back_populates= 'type')
+
+    serialize_rules = ('-items', '-subtype')
+    
+    def __repr__(self):
+        return f'Type: {self.type}'
 
 class SubType(db.Model, SerializerMixin):
     __tablename__ = 'subtypes'
@@ -62,8 +82,13 @@ class SubType(db.Model, SerializerMixin):
 
     type_id = db.Column(db.String, db.ForeignKey('types.id'))
 
-    type = db.relationship('Type', back_populates = 'subtypes')
-    # items = db.relationship('Item', back_populates='subtype')
+    type = db.relationship('Type', back_populates = 'subtype')
+    items = db.relationship('Item', back_populates='subtype')
+
+    serialize_rules = ('-type', '-items')
+
+    def __repr__(self):
+        return f'subtype: {self.subtype}'
 
 class Size(db.Model, SerializerMixin):
     __tablename__ = 'sizes'
@@ -73,6 +98,11 @@ class Size(db.Model, SerializerMixin):
 
     items = db.relationship('Item', backref='size')
 
+    serialize_rules = ('-items',)
+
+    def __repr__(self):
+        return f'Size: {self.size}'
+
 class Brand(db.Model, SerializerMixin):
     __tablename__ = 'brands'
 
@@ -81,7 +111,11 @@ class Brand(db.Model, SerializerMixin):
 
     items = db.relationship('Item', backref='brand')
 
+    serialize_rules = ('-items',)
 
+    def __repr__(self):
+        return f'Brand: {self.brand}'
+    
 class Transaction(db.Model, SerializerMixin):
     __tablename__ = 'transactions'
 
@@ -95,6 +129,8 @@ class Transaction(db.Model, SerializerMixin):
 
     users = db.relationship('User', back_populates = 'transactions')
 
+    serialize_rules = ('-users',)
+
 
 class Message(db.Model, SerializerMixin):
     __tablename__ = 'messages'
@@ -107,6 +143,8 @@ class Message(db.Model, SerializerMixin):
     user_2 = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     users = db.relationship('User', back_populates = 'messages')
+
+    serialize_rules = ('-users',)
 
 
 
