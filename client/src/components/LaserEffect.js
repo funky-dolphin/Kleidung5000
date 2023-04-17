@@ -1,15 +1,16 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from "react";
+import "../styles.css";
 
 const LaserEffect = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     const canvasWidth = canvas.width;
     const canvasHeight = canvas.height;
 
-    const laserColor = 'rgba(0, 255, 0, 0.8)';
+    const laserColor = "rgba(0, 255, 0, 0.8)"; // Increase last number to make laser stronger
 
     const drawLaser = () => {
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -32,7 +33,12 @@ const LaserEffect = () => {
       ref={canvasRef}
       width={window.innerWidth}
       height={window.innerHeight}
-      style={{ background: 'black', display: 'block' }}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        zIndex: -1,
+      }}
     />
   );
 };

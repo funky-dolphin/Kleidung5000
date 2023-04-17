@@ -51,7 +51,9 @@ function Shop() {
       <div className="mb-3">
         <Button onClick={handleShopClick}>Shop Items</Button>
       </div>
-      <h3 style={{ marginBottom: "20px" }}>KLEIDUNG'S Selects</h3>
+      <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
+        KLEIDUNG'S Selects
+      </h3>
       <div className="d-flex flex-wrap justify-content-center">
         {items.map((item, index) => (
           <CardItem

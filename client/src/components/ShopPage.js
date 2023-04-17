@@ -14,7 +14,9 @@ const ShopPage = () => {
 
   return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">
-      <h3 style={{ marginBottom: "20px" }}>KLEIDUNG Marketplace</h3>
+      <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
+        KLEIDUNG Marketplace
+      </h3>
       <div className="d-flex flex-wrap justify-content-center">
         {items.map((item, index) => (
           <CardItem

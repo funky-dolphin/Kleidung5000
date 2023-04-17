@@ -36,3 +36,8 @@
   color: black;
   scale: 115%;
 }
+
+body {
+  background-color: black;
+  margin: 0;
+}
