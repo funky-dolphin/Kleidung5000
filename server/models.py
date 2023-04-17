@@ -20,8 +20,9 @@ class User(db.Model, SerializerMixin):
 
     transactions = db.relationship('Transaction', back_populates = 'users')
     messages = db.relationship('Message', back_populates = 'users')
+    favoriteitems = db.relationship('FavoriteItem', back_populates = 'user')
 
-    serialize_rules = ('-transactions.users', '-messages.users')
+    serialize_rules = ('-transactions.users', '-messages.users', '-favoriteitems')
 
     @hybrid_property
     def password_hash(self):
@@ -57,8 +58,9 @@ class Item(db.Model, SerializerMixin):
 
     type = db.relationship('Type', back_populates = 'items')
     subtype = db.relationship('SubType', back_populates ="items")
+    favoriteitems = db.relationship('FavoriteItem', back_populates = 'items')
 
-    serialize_rules = ('-type', '-subtype', '-brand', '-size')
+    serialize_rules = ('-type', '-subtype', '-brand', '-size', '-favoriteitems')
     
 class Type(db.Model, SerializerMixin):
     __tablename__ = 'types'
@@ -145,6 +147,19 @@ class Message(db.Model, SerializerMixin):
     users = db.relationship('User', back_populates = 'messages')
 
     serialize_rules = ('-users',)
+
+class FavoriteItem(db.Model, SerializerMixin):
+    __tablename__ = 'favoriteitems'
+
+    id = db.Column(db.Integer, primary_key=True)
+    item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    user = db.relationship('User', back_populates = 'favoriteitems')
+    items = db.relationship('Item', back_populates = 'favoriteitems' )
+
+    serialize_rules=('-user', '-items')
+
 
 
 
