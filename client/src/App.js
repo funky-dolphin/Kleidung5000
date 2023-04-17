@@ -1,9 +1,17 @@
 import logo from './logo.svg';
+import React from 'react';
+import LaserEffect from './LaserEffect';
+import SoundCloudPlayer from './SoundCloudPlayer';
 import './App.css';
 
 function App() {
+    const soundcloudEmbedURL =
+      'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1237568050';
+  
   return (
     <div className="App">
+      <LaserEffect />
+      <SoundCloudPlayer url={soundcloudEmbedURL} />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
