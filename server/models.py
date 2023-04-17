@@ -10,8 +10,6 @@ metadata = MetaData(naming_convention={
 
 db = SQLAlchemy(metadata=metadata)
 
-<<<<<<< HEAD
-=======
 class User(db.Model, SerializerMixin):
     __tablename__='users'
 
@@ -117,6 +115,3 @@ class Message(db.Model, SerializerMixin):
 
 
     
-
-    
->>>>>>> main

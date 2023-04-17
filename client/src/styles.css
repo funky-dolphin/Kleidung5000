@@ -1,0 +1,25 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar-form {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.search-bar button {
+  order: -1;
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .navbar-form {
+    margin-top: 8px;
+  }
+}
+
+.account-image:hover {
+  opacity: 0.75;
+}
