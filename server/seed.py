@@ -98,7 +98,8 @@ with app.app_context():
     db.session.commit()
 
     print("Seeding done!")
-    print(outerwear.subtypes[1].subtype)
+    print(i1)
+   
 
     
 

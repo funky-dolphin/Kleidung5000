@@ -23,7 +23,7 @@ class User(db.Model, SerializerMixin):
     messages = db.relationship('Message', back_populates = 'users')
 
 
-class Item(db.Model, SerializerMixin):
+class Item(db.Model, SerializerMixin): 
     __tablename__ = 'items'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -42,9 +42,8 @@ class Item(db.Model, SerializerMixin):
     brand_id = db.Column(db.String, db.ForeignKey('brands.id'))
 
     type = db.relationship('Type', back_populates = 'items')
-    # subtype = db.relationship('Subtype', back_populates='items')
-    subtypes = association_proxy('Type', 'subtypes')
-
+    subtype = db.relationship('SubType', back_populates ="items")
+    
 class Type(db.Model, SerializerMixin):
     __tablename__ = 'types'
 
@@ -52,7 +51,10 @@ class Type(db.Model, SerializerMixin):
     type = db.Column(db.String)
 
     items = db.relationship('Item', back_populates='type')
-    subtypes = db.relationship('SubType', back_populates= 'type')
+    subtype = db.relationship('SubType', back_populates= 'type')
+    
+    def __repr__(self):
+        return f'Type: {self.type}'
 
 class SubType(db.Model, SerializerMixin):
     __tablename__ = 'subtypes'
@@ -62,8 +64,11 @@ class SubType(db.Model, SerializerMixin):
 
     type_id = db.Column(db.String, db.ForeignKey('types.id'))
 
-    type = db.relationship('Type', back_populates = 'subtypes')
-    # items = db.relationship('Item', back_populates='subtype')
+    type = db.relationship('Type', back_populates = 'subtype')
+    items = db.relationship('Item', back_populates='subtype')
+
+    def __repr__(self):
+        return f'subtype: {self.subtype}'
 
 class Size(db.Model, SerializerMixin):
     __tablename__ = 'sizes'
@@ -73,6 +78,9 @@ class Size(db.Model, SerializerMixin):
 
     items = db.relationship('Item', backref='size')
 
+    def __repr__(self):
+        return f'Size: {self.size}'
+
 class Brand(db.Model, SerializerMixin):
     __tablename__ = 'brands'
 
@@ -81,7 +89,9 @@ class Brand(db.Model, SerializerMixin):
 
     items = db.relationship('Item', backref='brand')
 
-
+    def __repr__(self):
+        return f'Brand: {self.brand}'
+    
 class Transaction(db.Model, SerializerMixin):
     __tablename__ = 'transactions'
 
