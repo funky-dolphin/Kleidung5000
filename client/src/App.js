@@ -6,7 +6,7 @@ import Login from "../src/components/Login";
 import Register from "./components/Registration";
 import Likes from "../src/components/Likes";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LaserEffect from "./components/LaserEffect";
+// import LaserEffect from "./components/LaserEffect";
 import SoundCloudPlayer from "./components/SoundCloudPlayer";
 
 function App() {
