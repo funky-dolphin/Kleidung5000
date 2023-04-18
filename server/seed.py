@@ -30,6 +30,29 @@ with app.app_context():
     i2=Item(condition=3, image = " ", color="grey", name="thong", price = 444.99, for_sale=True, owner_id=2, type_id=1, subtype_id=2, size_id=4, brand_id=3)
     items=[i1,i2]
 
+    i41=Item(condition=10, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231358M195019_1/dries-van-noten-khaki-paneled-blazer.jpg", color="Khaki", name="Paneled Blazer", price=1425.00, for_sale=True, owner_id=2, type_id=1, subtype_id=4, brand_id=12)
+    i42=Item(condition=7, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231232M175011_1/rick-owens-black-fog-leather-bomber-jacket.jpg", color="Black", name="Fog Leather Bomber Jacket", price=2815.00, for_sale=True, owner_id=1, type_id=1, subtype_id=1, brand_id=6)
+    i43=Item(condition=5, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231735M180001_1/craig-green-black-tab-jacket.jpg", color="Black", name="Tab Jacket", price=1665.00, for_sale=False, owner_id=3, type_id=1, subtype_id=1, brand_id=13 )
+    i44=Item(condition=8, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/222129M181003_1/acne-studios-brown-patchwork-leather-jacket.jpg", color="Brown", name="Patchwork Leather Jacket", price=2885.00, for_sale=True, owner_id=3, type_id=1, subtype_id=1, brand_id=11)
+    i45=Item(condition=9, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231358M180018_1/dries-van-noten-black-spread-collar-jacket.jpg", color="Black", name="Spread Collar Jacket", price=965.00, for_sale=True, owner_id=1, type_id=1, subtype_id=4, brand_id=12)
+    i46=Item(condition=6, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231057M191006_1/comme-des-garcons-homme-khaki-pleated-trousers.jpg", color="Khaki", name="Pleated Trousers", price=510.00, for_sale=True, owner_id=2, type_id=3, subtype_id=1, brand_id=1)
+    i47=Item(condition=7, image="https://www.prada.com/content/dam/pradabkg_products/U/UPS/UPS600/12NFF0002/UPS600_12NF_F0002_S_231_MDF.jpg/_jcr_content/renditions/cq5dam.web.hebebed.1000.1000.jpg", color="black", name="Leather Coat", price=10100.00, for_sale=False, owner_id=3, type_id=1, subtype_id=3, brand_id=10)
+    i48=Item(condition=10, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231985M191006_1/kiko-kostadinov-beige-danh-trousers.jpg", color="Beige", name="Danh Trousers", price=935.00, for_sale=True, owner_id=1, type_id=3, subtype_id=1, brand_id=5)
+    i49=Item(condition=1, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231735M195001_1/craig-green-brown-packable-blazer.jpg", color="Brown", name="Packable Blazer", price=1435.00, for_sale=True, owner_id=2, type_id=1, subtype_id=4, brand_id=13)
+    i50=Item(condition=7, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/222347M192011_1/comme-des-garcons-homme-plus-brown-colorblock-shirt.jpg", color="Brown", name="Colorblock Shirt", price=310.00, for_sale=True, owner_id=3, type_id=2, subtype_id=5, brand_id=1)
+    i51=Item(condition=9, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231260M181003_1/paul-smith-green-flap-pocket-leather-jacket.jpg", color="Green", name="Flap Pocket Jacket", price=2175.00, for_sale=True, owner_id=1, type_id=1, subtype_id=1, brand_id=9)
+    i52=Item(condition=7, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231358M214000_1/dries-van-noten-multicolor-paneled-tank-top.jpg", color="Multicolor", name="Paneled Tank Top", price=295.00, for_sale=True, owner_id=3, type_id=2, subtype_id=4, brand_id=12)
+    i53=Item(condition=10, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/222451M180003_1/gucci-tan-nylon-jacket.jpg", color="Tan", name="Nylon Jacket", price=1950.00, for_sale=False, owner_id=2, type_id=1, subtype_id=1, brand_id=3)
+    i54=Item(condition=4, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231451M180009_1/gucci-navy-quilted-gg-jacket.jpg", color="Navy", name="Quilted GG Jacket", price=2600.00, for_sale=True, owner_id=3, type_id=1, subtype_id=1, brand_id=3)
+    i55=Item(condition=1, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231232M214034_1/rick-owens-khaki-rib-tank-top.jpg", color="Khaki", name="Rib Tank Top", price=435.00, for_sale=True, owner_id=3, type_id=2, subtype_id=4, brand_id=6 )
+    i56=Item(condition=10, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231232M181010_1/rick-owens-pink-fogpocket-leather-jacket.jpg", color="Pink", name="FogPocket Leather Jacket", price=3470.00, for_sale=True, owner_id=2, type_id=1, subtype_id=1, brand_id=6)
+    i57=Item(condition=5, image="https://www.mrporter.com/variants/images/1647597309323357/in/w1200_q60.jpg", color="Purple", name="Sweater Vest", price=375.00, for_sale=True, owner_id=3, type_id=2, subtype_id=1, brand_id=8)
+    i58=Item(condition=9, image="https://www.mrporter.com/variants/images/1647597283516462/ou/w2000_q60.jpg", color="Gray", name="Intarsia Wool Sweater", price=680.00, for_sale=True, owner_id=2, type_id=2, subtype_id=2, brand_id=8)
+    i59=Item(condition=10, image="https://www.mrporter.com/variants/images/1647597283516508/in/w1200_q60.jpg", color="Turqoise", name="Velvet Satin Bomber", price=1510.00, for_sale=True, owner_id=3, type_id=1, subtype_id=1, brand_id=8)
+    i60=Item(condition=9, image="https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/222232M179030_1/rick-owens-black-cropped-shearling-jacket.jpg", color="Black", name="Cropped Shearling Jacket", price=4755.00, for_sale=True, owner_id=2, type_id=1, subtype_id=5, brand_id=6)
+
+
+
     print("Creating types...")
     outerwear = Type(type = "Outerwear")
     tops = Type(type = "Tops")
@@ -98,6 +121,7 @@ with app.app_context():
     print(i1)
    
 
-    
+
+ 
 
     
