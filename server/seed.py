@@ -26,6 +26,33 @@ with app.app_context():
     users = [nick, finn, brett]
 
     print("Creating items...")
+    i1=Item(condition=8, image = " ", color="black", name="myshirtttt", price = 100.99, for_sale=True, owner_id=1, type_id=1, subtype_id=1, size_id=3, brand_id=2)
+    i2=Item(condition=3, image = " ", color="grey", name="thong", price = 444.99, for_sale=True, owner_id=2, type_id=1, subtype_id=2, size_id=4, brand_id=3)
+
+    i21=Item(condition=9, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231260M145012_1/paul-smith-gunmetal-dog-tag-necklace.jpg ", color="silver", name="Dog Tag Necklace", price = 150.00, for_sale=True, owner_id=2, type_id=5, subtype_id=12, size_id=1, brand_id=9)
+    i22=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231260M145010_1/paul-smith-silver-rope-chain-necklace.jpg ", color="Silver", name="Rope Chain Necklace", price = 325.00, for_sale=True, owner_id=2, type_id=5, subtype_id=12, size_id=1, brand_id=9)
+    i23=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231260M145000_1/paul-smith-gunmetal-zip-necklace.jpg ", color="Silver", name="Gun Metal Zip Necklace", price = 125.00, for_sale=True, owner_id=2, type_id=5, subtype_id=12, size_id=1, brand_id=9)
+    i24=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231260M145002_1/paul-smith-gunmetal-gold-star-necklace.jpg ", color="Silver", name="Gun Metal Gold Star Necklace", price = 350.00, for_sale=True, owner_id=2, type_id=5, subtype_id=12, size_id=1, brand_id=9)
+    i25=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231260M145003_1/paul-smith-black-logo-pendant-necklace.jpg ", color="Black", name="Black Logo Pendant Necklace", price = 125.00, for_sale=True, owner_id=2, type_id=5, subtype_id=12, size_id=1, brand_id=9)
+    i26=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/222451M134056_1/gucci-blue-oval-sunglasses.jpg ", color="Blue", name="Blue Oval Sunglasses", price = 565.00, for_sale=True, owner_id=2, type_id=5, subtype_id=13, size_id=1, brand_id=3)
+    i27=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/222451M134051_1/gucci-black-mask-sunglasses.jpg ", color="Black", name="Black Mask Sunglasses", price = 1175.00, for_sale=True, owner_id=2, type_id=5, subtype_id=13, size_id=1, brand_id=3)
+    i28=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/222451M134048_1/gucci-silver-shield-sunglasses.jpg ", color="Pink", name="Silver Shield Sunglasses", price = 1175.00, for_sale=True, owner_id=3, type_id=5, subtype_id=13, size_id=1, brand_id=3)
+    i29=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231451M134072_1/gucci-gold-rectangular-sunglasses.jpg ", color="Black", name="Gold Rectangular Sunglasses", price = 565.00, for_sale=True, owner_id=1, type_id=5, subtype_id=13, size_id=1, brand_id=3)
+    i30=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231451M134059_1/gucci-black-round-sunglasses.jpg ", color="Black", name="Black Round Sunglasses", price = 565.00, for_sale=True, owner_id=3, type_id=5, subtype_id=13, size_id=1, brand_id=3)
+    i31=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/222451M134059_1/gucci-silver-geometric-sunglasses.jpg", color="Black", name="Silver Geometric Sunglasses", price = 1175.00, for_sale=True, owner_id=1, type_id=5, subtype_id=13, size_id=1, brand_id=3)
+    i32=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231129F049000_1/acne-studios-black-embossed-tote.jpg", color="Black", name="Black Embossed Tote", price = 650.00, for_sale=True, owner_id=2, type_id=5, subtype_id=14, size_id=1, brand_id=11)
+    i32=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231129F046006_1/acne-studios-off-white-and-gray-distortion-bag.jpg", color="Grey", name="Off-White Distortion Bag", price = 1700.00, for_sale=True, owner_id=3, type_id=5, subtype_id=14, size_id=1, brand_id=11)
+    i33=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231129F049002_1/acne-studios-white-and-green-printed-tote.jpg", color="Green", name="White and Green Printed Tote", price = 750.00, for_sale=True, owner_id=1, type_id=5, subtype_id=14, size_id=1, brand_id=11)
+    i34=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/232451F048024_1/gucci-orange-gg-matelasse-shoulder-bag.jpg", color="Orange", name="Orange GG Matelasse Shoulder bag", price = 1980.00, for_sale=True, owner_id=3, type_id=5, subtype_id=14, size_id=1, brand_id=3)
+    i35=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231404F048010_1/versace-pink-mini-virtus-bag.jpg", color="Pink", name="Pink Mini Virtus Bag", price = 1175.00, for_sale=True, owner_id=1, type_id=5, subtype_id=14, size_id=1, brand_id=14)
+    i36=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/222404F046028_1/versace-black-la-medusa-bag.jpg", color="Black", name="Black La Medusa Bag", price = 2325.00, for_sale=True, owner_id=2, type_id=5, subtype_id=14, size_id=1, brand_id=14)
+    i37=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/222404F048037_1/versace-black-la-medusa-round-crossbody-bag.jpg", color="Black", name="Black La Medusa Round Crossbody Bag", price = 2325.00, for_sale=True, owner_id=2, type_id=5, subtype_id=14, size_id=1, brand_id=14)
+    i38=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/222404F048057_1/versace-red-greca-goddess-bag.jpg", color="Red", name="Red Greca Goddess Bag", price = 2895.00, for_sale=True, owner_id=1, type_id=5, subtype_id=14, size_id=1, brand_id=14)
+    i39=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/222404F044000_1/versace-black-greca-goddess-clutch.jpg", color="Red", name="Black Greca Goddess Clutch", price = 2895.00, for_sale=True, owner_id=2, type_id=5, subtype_id=14, size_id=1, brand_id=14)
+    i40=Item(condition=10, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/222129F042003_1/acne-studios-orange-furry-fleece-backpack.jpg", color="Orange", name="Orange Furry Fleece Backoack", price = 470.00, for_sale=True, owner_id=1, type_id=5, subtype_id=14, size_id=1, brand_id=11)
+
+    
+    items=[i1,i2, i21, i22, i23, i24, i25, i26, i27, i28, i29, i30, i31, i32, i33, i34, i35, i36, i37, i38, i39, i40 ]
     i1=Item(condition=8, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231368M180014_1/acronym-khaki-and-black-j1wts-gt-jacket.jpg", color="Black", name="J1WTS-GT", price = 1100.99, for_sale=True, owner_id=1, type_id=1, subtype_id=1, size_id=3, brand_id=2)
     i2=Item(condition=3, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231368M180001_1/acronym-black-j111ts-ch-jacket.jpg", color="Black", name="J11TS-CH", price = 999.99, for_sale=True, owner_id=2, type_id=1, subtype_id=1, size_id=4, brand_id=2)
     i3=Item(condition=7, image = "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/231038M202007_1/doublet-gray-braids-hair-hoodie.jpg", color="Brown", name="Hair Hoodie", price = 650.55, for_sale=True, owner_id=2, type_id=2, subtype_id=2, size_id=1, brand_id=7)
@@ -75,7 +102,6 @@ with app.app_context():
     tailoring = SubType(subtype = "Tailoring", type_id=1)
     fur =  SubType(subtype = "Fur", type_id=1)
     down = SubType(subtype = "Down", type_id=1)
-
     knits = SubType(subtype = "Knits", type_id = 2)
     sweatshirts = SubType(subtype = "Sweatshirts", type_id = 2)
     tshirts = SubType(subtype = "T-Shirts", type_id = 2)
