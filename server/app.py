@@ -252,7 +252,7 @@ api.add_resource(Messages_By_Id, '/messages/<int:id>')
 class Items(Resource):
     def get(self):
         items = Item.query.all()
-        items_dict = [item.to_dict() for item in items]
+        items_dict = [item.to_dict(rules=('size', 'brand')) for item in items]
         return items_dict, 200
   
     def post(self):
@@ -322,14 +322,14 @@ api.add_resource(ItemsByOwner, '/itemsbyowner/<int:id>')
 class ItemsByType(Resource):
     def get(self,id):
         items = Item.query.filter_by(type_id = id).all()
-        items_dict=[item.to_dict() for item in items]
+        items_dict=[item.to_dict(rules=('size', 'brand')) for item in items]
         return make_response(items_dict, 201)
 api.add_resource(ItemsByType, '/itemsbytype/<int:id>')
 
 class ItemsBySubType(Resource):
     def get(self,type_id, subtype_id):
         items = Item.query.filter_by(type_id=type_id, subtype_id=subtype_id).all()
-        items_dict=[item.to_dict() for item in items]
+        items_dict=[item.to_dict(rules=('size', 'brand')) for item in items]
         return make_response(items_dict, 201)
 api.add_resource(ItemsBySubType, '/itemsbysubtype/<int:type_id>/<int:subtype_id>')
     

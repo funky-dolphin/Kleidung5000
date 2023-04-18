@@ -11,7 +11,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles.css";
 import profileImage from "../testpp.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
@@ -40,6 +40,26 @@ function Navigation() {
     navigate("/");
   };
 
+  const handleGetOuterwear = () =>{
+    navigate("/outerwear")
+  }
+
+  const handleGetTops = () =>{
+    navigate("/tops")
+  }
+
+  const handleGetBottoms = () =>{
+    navigate("/bottoms")
+  }
+
+  const handleGetFootwear = () =>{
+    navigate("/footwear")
+  }
+
+  const handleGetAccessories = () =>{
+    navigate("/accessories")
+  }
+
   const handleLikesClick = () => {
     navigate("/likes");
   };
@@ -54,24 +74,27 @@ function Navigation() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <NavDropdown
-              title="Outerwear"
+              title="Outerwear" 
+              onClick = {handleGetOuterwear}
               id="basic-nav-dropdown"
               show={showOuterwear}
               onMouseEnter={() => setShowOuterwear(true)}
               onMouseLeave={() => setShowOuterwear(false)}
               className="hover-dropdown"
             >
-              <NavDropdown.Item href="#action/3.1">Jackets</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Coats</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">
+              <NavDropdown.Item href="/outerwear/jackets">Jackets
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/outerwear/coats">Coats</NavDropdown.Item>
+              <NavDropdown.Item href="/outerwear/trenchcoats">
                 Trench Coats{" "}
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.4">Tailoring</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.5">Fur</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.6">Down</NavDropdown.Item>
+              <NavDropdown.Item href="/outerwear/tailoring">Tailoring</NavDropdown.Item>
+              <NavDropdown.Item href="/outerwear/fur">Fur</NavDropdown.Item>
+              <NavDropdown.Item href="/outerwear/down">Down</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
               title="Tops"
+              onClick = {handleGetTops}
               show={showTops}
               onMouseEnter={() => setShowTops(true)}
               onMouseLeave={() => setShowTops(false)}
@@ -88,6 +111,7 @@ function Navigation() {
             </NavDropdown>
             <NavDropdown
               title="Bottoms"
+              onClick = {handleGetBottoms}
               id="basic-nav-dropdown"
               show={showBottoms}
               onMouseEnter={() => setShowBottoms(true)}
@@ -100,6 +124,7 @@ function Navigation() {
             </NavDropdown>
             <NavDropdown
               title="Footwear"
+              onClick = {handleGetFootwear}
               id="basic-nav-dropdown"
               show={showFootwear}
               onMouseEnter={() => setShowFootwear(true)}
@@ -112,6 +137,7 @@ function Navigation() {
             </NavDropdown>
             <NavDropdown
               title="Accessories"
+              onClick = {handleGetAccessories}
               id="basic-nav-dropdown"
               show={showAccessories}
               onMouseEnter={() => setShowAccessories(true)}

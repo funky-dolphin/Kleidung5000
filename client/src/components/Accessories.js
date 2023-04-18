@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import CardItem from "./CardItem";
 import "../styles.css";
 
-  function ShopPage({items, setItems}) {
+function Accessories({items, setItems}){
     useEffect(()=>{
-      fetch("http://127.0.0.1:5555/items")
-      .then(res=>res.json())
-      .then(data=>setItems(data)) 
-    },[])
+        fetch("http://127.0.0.1:5555/itemsbytype/5")
+        .then(res=>res.json())
+        .then(data=>setItems(data)) 
+      },[])
 
-  return (
+return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">
       <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
         KLEIDUNG Marketplace
@@ -32,4 +32,4 @@ import "../styles.css";
   );
 };
 
-export default ShopPage;
+export default Accessories;

@@ -1,50 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../styles.css";
 import CardItem from "./CardItem";
 
-function Shop() {
+function Shop({setItems}) {
   const navigate = useNavigate();
 
   const handleShopClick = () => {
     navigate("/shop-page");
   };
 
-  const items = [
-    {
-      image: "https://via.placeholder.com/150",
-      brand: "Yohji",
-      title: "Item1",
-      description: "Description for Item1",
-      size: "M",
-      condition: 8,
-    },
-    {
-      image: "https://via.placeholder.com/150",
-      brand: "Brand2",
-      title: "Item2",
-      description: "Description for Item2",
-      size: "M",
-      condition: 8,
-    },
-    {
-      image: "https://via.placeholder.com/150",
-      brand: "Brand3",
-      title: "Item3",
-      description: "Description for Item3",
-      size: "M",
-      condition: 8,
-    },
-    {
-      image: "https://via.placeholder.com/150",
-      brand: "Brand4",
-      title: "Item4",
-      description: "Description for Item4",
-      size: "M",
-      condition: 8,
-    },
-  ];
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+  const [displayItems, setDisplayItems] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5555/items")
+      .then((res) => res.json())
+      .then((data) => {
+        setItems(data);
+        const shuffledItems = shuffleArray(data);
+        setDisplayItems(shuffledItems.slice(0, 4));
+      });
+  }, []);
 
   return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">
@@ -54,19 +38,19 @@ function Shop() {
       <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
         KLEIDUNG'S Selects
       </h3>
-      <div className="d-flex flex-wrap justify-content-center">
-        {items.map((item, index) => (
-          <CardItem
-            key={index}
+      {<ul className="d-flex flex-wrap justify-content-center">
+        {displayItems.map((item) => {
+          return <CardItem
+            key={item.id}
             image={item.image}
-            brand={item.brand}
-            title={item.title}
-            description={item.description}
-            size={item.size}
+            brand={item.brand.brand}
+            name={item.name}
+            size={item.size.size}
             condition={item.condition}
+            price = {item.price}
           />
-        ))}
-      </div>
+        })}
+      </ul>}
     </div>
   );
 }
