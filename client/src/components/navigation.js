@@ -38,6 +38,7 @@ function Navigation() {
     navigate("/likes");
   };
 
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -47,12 +48,10 @@ function Navigation() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <NavDropdown title="Outerwear" id="basic-nav-dropdown">
+            <NavDropdown title="Outerwear" id="basic-nav-dropdown" >
               <NavDropdown.Item href="#action/3.1">Jackets</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Coats</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">
-                Trench Coats
-              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Trench Coats </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.4">Tailoring</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.5">Fur</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.6">Down</NavDropdown.Item>
