@@ -41,3 +41,7 @@ body {
   background-color: black;
   margin: 0;
 }
+
+.hover-dropdown:hover .dropdown-menu {
+  display: block !important;
+}
