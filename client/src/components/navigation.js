@@ -64,7 +64,7 @@ function Navigation() {
               <NavDropdown.Item href="#action/3.1">Jackets</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Coats</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">
-                Trench Coats
+                Trench Coats{" "}
               </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.4">Tailoring</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.5">Fur</NavDropdown.Item>

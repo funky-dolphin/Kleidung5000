@@ -60,17 +60,23 @@ class CheckSession(Resource):
             return {'message': '401: Not Authorized'}, 401
 
 api.add_resource(CheckSession, '/check_session')
-
+# AUTHORIZED
 class Logout(Resource):
 
     def delete(self):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
         session['user_id'] = None
         return {'message': '204: No Content'}, 204
 
 api.add_resource(Logout, '/logout')
-
+# AUTHORIZED
 class Users_By_Id(Resource):
     def patch(self, id):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
         user = User.query.filter_by(id=id).first()
         data = request.get_json()
         
@@ -88,6 +94,9 @@ class Users_By_Id(Resource):
         return response
 
     def delete(self, id):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
         user = User.query.filter_by(id=id).first()
         if not user:
             return make_response({
@@ -112,6 +121,12 @@ class Types(Resource):
     
 api.add_resource(Types, '/types')
 
+class TypesById(Resource):
+    def get(self, id):
+        type = Type.query.filter_by(id = id).first()
+        return type.to_dict(), 200
+api.add_resource(TypesById, '/types/<int:id>')
+
 class SubTypes(Resource):
     def get(self):
         subtypes = SubType.query.all()
@@ -122,6 +137,12 @@ class SubTypes(Resource):
         )
     
 api.add_resource(SubTypes, '/subtypes')
+
+class SubTypesById(Resource):
+    def get(self, id):
+        subtype = SubType.query.filter_by(id = id).first()
+        return subtype.to_dict(), 200
+api.add_resource(SubTypesById, '/subtypes/<int:id>')
 
 class Sizes(Resource):
     def get(self):
@@ -134,6 +155,12 @@ class Sizes(Resource):
     
 api.add_resource(Sizes, '/sizes')
 
+class SizesById(Resource):
+    def get(self, id):
+        size = Size.query.filter_by(id = id).first()
+        return size.to_dict(), 200
+api.add_resource(SizesById, '/sizes/<int:id>')
+
 class Brands(Resource):
     def get(self):
         brands = Brand.query.all()
@@ -145,8 +172,17 @@ class Brands(Resource):
     
 api.add_resource(Brands, '/brands')
 
+class BrandsById(Resource):
+    def get(self, id):
+        brand = Brand.query.filter_by(id = id).first()
+        return brand.to_dict(), 200
+api.add_resource(BrandsById, '/brands/<int:id>')
+# AUTHORIZED
 class Transactions(Resource):
     def get(self):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
         transactions = Transaction.query.all()
         transaction_dict = [transaction.to_dict() for transaction in transactions]
         return make_response(
@@ -155,9 +191,12 @@ class Transactions(Resource):
         )
     
 api.add_resource(Transactions, '/transactions')
-
+# AUTHORIZED
 class Messages(Resource):
     def get(self):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
         messages = Message.query.all()
         message_dict = [message.to_dict() for message in messages]
         return make_response(
@@ -165,6 +204,9 @@ class Messages(Resource):
             200
         )
     def post(self):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
         data = request.get_json()
         try:
             message = Message(
@@ -189,9 +231,12 @@ class Messages(Resource):
         return response
 
 api.add_resource(Messages, '/messages')
-
+# AUTHORIZED
 class Messages_By_Id(Resource):
     def patch(self, id):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
         message = Message.query.filter_by(id=id).first()
         data = request.get_json()
         for attr in data:
@@ -209,8 +254,11 @@ class Items(Resource):
         items = Item.query.all()
         items_dict = [item.to_dict() for item in items]
         return items_dict, 200
-    
+  
     def post(self):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
         data = request.get_json()
         new_item = Item(
             condition = data['condition'],
@@ -235,8 +283,11 @@ class ItemsById(Resource):
     def get(self, id):
         item = Item.query.filter_by(id = id).first()
         return item.to_dict(), 200
-    
+    # AUTHORIZATION
     def patch(self, id):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
         item = Item.query.filter_by(id = id).first()
         data = request.get_json()
         for attr in data:
@@ -246,24 +297,48 @@ class ItemsById(Resource):
         item_dict = item.to_dict()
 
         return make_response(item_dict, 202)
-    
+    #AUTHORIZED 
     def delete(self, id):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
         item = Item.query.filter_by(id = id).first()
         db.session.delete(item)
         db.session.commit()
     
 api.add_resource(ItemsById, '/items/<int:id>')
-
+# AUTHORIZED
 class ItemsByOwner(Resource):
     def get(self,id):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
         items = Item.query.filter_by(owner_id = id).all()
         items_dict = [item.to_dict() for item in items]
         return make_response(items_dict,200)
-    
-api.add_resource(ItemsByOwner, '/itemsbyowner/<int:id>')
 
+api.add_resource(ItemsByOwner, '/itemsbyowner/<int:id>')
+    
+class ItemsByType(Resource):
+    def get(self,id):
+        items = Item.query.filter_by(type_id = id).all()
+        items_dict=[item.to_dict() for item in items]
+        return make_response(items_dict, 201)
+api.add_resource(ItemsByType, '/itemsbytype/<int:id>')
+
+class ItemsBySubType(Resource):
+    def get(self,type_id, subtype_id):
+        items = Item.query.filter_by(type_id=type_id, subtype_id=subtype_id).all()
+        items_dict=[item.to_dict() for item in items]
+        return make_response(items_dict, 201)
+api.add_resource(ItemsBySubType, '/itemsbysubtype/<int:type_id>/<int:subtype_id>')
+    
+# AUTHORIZED
 class FavoriteItems(Resource):
     def post(self):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
         data = request.get_json()
         favorite_item = FavoriteItem(
             item_id = data['item_id'],
@@ -273,9 +348,12 @@ class FavoriteItems(Resource):
         db.session.commit()
         return make_response(favorite_item.to_dict(), 201)
 api.add_resource(FavoriteItems, '/favoriteitems')
-
+# AUTHORIZED
 class FavoriteItemsByOwner(Resource):
     def get(self,id):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
         items = FavoriteItem.query.filter_by(user_id = id).all()
         items_dict = [item.to_dict() for item in items]
         return make_response(items_dict,200)
