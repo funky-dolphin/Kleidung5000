@@ -17,6 +17,7 @@ return (
         {<ul className="d-flex flex-wrap justify-content-center">
           {items.map((item) => {
             return <CardItem
+              item = {item}
               key={item.id}
               image={item.image}
               brand={item.brand.brand}

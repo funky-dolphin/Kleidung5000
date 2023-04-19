@@ -63,6 +63,7 @@ function Navigation() {
   const handleLikesClick = () => {
     navigate("/likes");
   };
+ 
 
   return (
     <div className="App">
@@ -102,9 +103,7 @@ function Navigation() {
               className="hover-dropdown"
             >
               <NavDropdown.Item href="#action/3.1">Knits</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Sweatshirts
-              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">Sweatshirts</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">T-Shirts</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.4">Tanks</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.5">ButtonUps</NavDropdown.Item>
