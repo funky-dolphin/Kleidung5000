@@ -13,6 +13,7 @@ import Tops from "./components/Tops"
 import Bottoms from "./components/Bottoms"
 import Footwear from "./components/Footwear";
 import Accessories from "./components/Accessories";
+import SelectedItem from "./components/SelectedItem";
 
 function App() {
   const soundcloudEmbedURL =
@@ -45,6 +46,7 @@ function App() {
           <Route path="/bottoms" element={<Bottoms items={items} setItems={setItems}/>} />
           <Route path="/footwear" element={<Footwear items={items} setItems={setItems}/>} />
           <Route path="/accessories" element={<Accessories items={items} setItems={setItems}/>} />
+          <Route path="/items/:id" element={<SelectedItem/>} /> 
         </Routes>
       </BrowserRouter>
     </div>

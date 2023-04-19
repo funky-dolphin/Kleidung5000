@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import CardItem from "./CardItem";
 import "../styles.css";
+import { ListGroupItem } from "react-bootstrap";
 
 function Tops({items, setItems}){
     useEffect(()=>{
@@ -17,6 +18,7 @@ return (
         {<ul className="d-flex flex-wrap justify-content-center">
           {items.map((item) => {
             return <CardItem
+              item = {item}
               key={item.id}
               image={item.image}
               brand={item.brand.brand}

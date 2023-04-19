@@ -63,6 +63,7 @@ function Navigation({user,setUser}) {
   const handleLikesClick = () => {
     navigate("/likes");
   };
+ 
 
     function handleLogout() {
       fetch("http://127.0.0.1:5555/logout", {
@@ -108,9 +109,7 @@ function Navigation({user,setUser}) {
               className="hover-dropdown"
             >
               <NavDropdown.Item href="#action/3.1">Knits</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Sweatshirts
-              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">Sweatshirts</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">T-Shirts</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.4">Tanks</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.5">ButtonUps</NavDropdown.Item>
