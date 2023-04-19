@@ -5,7 +5,7 @@ from config import app, bcrypt
 from models import Item
 
 api = Api(app)
-
+app.secret_key = b'\xfe\x97\xb3\xc2h\x0b\xd5\xb7\xbbIR\x80b?\xca\xb0'
 class Signup(Resource):
     def get(self):
         user = User.query.filter(User.id == session.get('user_id')).first()
