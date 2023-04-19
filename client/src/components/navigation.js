@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-function Navigation() {
+function Navigation({user,setUser}) {
   const [showOuterwear, setShowOuterwear] = useState(false);
   const [showTops, setShowTops] = useState(false);
   const [showBottoms, setShowBottoms] = useState(false);
@@ -63,6 +63,12 @@ function Navigation() {
   const handleLikesClick = () => {
     navigate("/likes");
   };
+
+    function handleLogout() {
+      fetch("http://127.0.0.1:5555/logout", {
+        method: "DELETE",
+      }).then(() => setUser());
+    }
 
   return (
     <div className="App">
@@ -157,6 +163,13 @@ function Navigation() {
                 className="login-button"
               >
                 Login
+              </Button>
+              <Button
+                variant="outline-primary"
+                onClick={handleLogout}
+                className="logiut-button"
+              >
+                Logout
               </Button>
               <Button
                 variant="outline-primary"

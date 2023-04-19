@@ -1,23 +1,14 @@
 import React, { useEffect } from "react";
 import CardItem from "./CardItem";
 import "../styles.css";
-import {useLocation} from "react-router-dom"
 
 function Outerwear({items, setItems}){
-    const location = useLocation();
+  
     useEffect(()=> {
-        let url;
-        if (location.pathname === "/outerwear"){
-            url = "http://127.0.0.1:5555/itemsbytype/1";
-        }else if(location.pathname === "/outerwear/jackets"){
-            url = "http://127.0.0.1:5555/itemsbysubtype/1/1";
-        } else {
-            url = "http://127.0.0.1:5555";
-        }
-        fetch(url)
+        fetch("http://127.0.0.1:5555/itemsbytype/1")
         .then(res=>res.json())
-        .then(data=>console.log(data)) 
-      },[location]);
+        .then(data=>setItems(data)) 
+      },[]);
 
 return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">

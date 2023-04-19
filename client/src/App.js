@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect } from "react";
 import Navigation from "./components/navigation";
 import Featured from "./components/Featured";
 import ShopPage from "../src/components/ShopPage";
@@ -18,16 +18,26 @@ function App() {
   const soundcloudEmbedURL =
     "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1237568050";
   const[items, setItems] = useState([])
+  const[user,setUser]=useState(null)
+  console.log(user)
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5555/check_session").then((response) => {
+      if (response.ok) {
+        response.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
   return (
     <div className="App">
       <BrowserRouter>
-        <Navigation items={items} setItems={setItems}/>
+        <Navigation user={user} setUser={setUser} items={items} setItems={setItems}/>
         <LaserEffect />
         <SoundCloudPlayer url={soundcloudEmbedURL} />
         <Routes>
           <Route exact path="/" element={<Featured setItems={setItems}/>} />
           <Route path="/shop-page" element={<ShopPage items={items} setItems={setItems}/>} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setUser={setUser}/>} />
           <Route path="/register" element={<Register />} />
           <Route path="/likes" element={<Likes />} />
           <Route path="/outerwear" element={<Outerwear items={items} setItems={setItems} />} />
