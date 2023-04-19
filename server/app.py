@@ -3,8 +3,10 @@ from flask_restful import Resource, Api
 from models import db, User, Type, SubType, Brand, Transaction, Size, Message, FavoriteItem
 from config import app, bcrypt
 from models import Item
+# from flask_session import Session
 
 api = Api(app)
+# Session(app)
 
 class Signup(Resource):
     def get(self):
@@ -33,9 +35,10 @@ class Signup(Resource):
 
 api.add_resource(Signup, '/signup')
 
-class Login(Resource):
+class Login(Resource):   
     def post(self):
         data = request.get_json()
+        print(data)
         username = data['username']
         user = User.query.filter(User.username == username).first()
 
@@ -46,6 +49,7 @@ class Login(Resource):
 
         if user.authenticate(password):
             session['user_id'] = user.id
+            print("here is the session", session)
             return user.to_dict(), 200
 
 api.add_resource(Login, '/login')
@@ -53,8 +57,10 @@ api.add_resource(Login, '/login')
 class CheckSession(Resource):
 
     def get(self):
+        print(session)
         user = User.query.filter(User.id == session.get('user_id')).first()
         if user:
+            print(user)
             return user.to_dict()
         else:
             return {'message': '401: Not Authorized'}, 401
@@ -361,4 +367,4 @@ class FavoriteItemsByOwner(Resource):
 api.add_resource(FavoriteItemsByOwner, '/favoriteitemsbyowner/<int:id>')
 
 if __name__ == '__main__':
-    app.run(port=5555, debug=True)    
+    app.run(port=5555, debug=True, host="localhost")    
