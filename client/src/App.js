@@ -14,6 +14,12 @@ import Bottoms from "./components/Bottoms"
 import Footwear from "./components/Footwear";
 import Accessories from "./components/Accessories";
 import SelectedItem from "./components/SelectedItem";
+import Jackets from "./components/Jackets";
+import Coats from "./components/Coats";
+import TrenchCoats from "./components/TrenchCoats";
+import Tailoring from "./components/Tailoring";
+import Fur from "./components/Fur";
+import Down from "./components/Down";
 
 function App() {
   const soundcloudEmbedURL =
@@ -46,6 +52,12 @@ function App() {
           <Route path="/bottoms" element={<Bottoms items={items} setItems={setItems}/>} />
           <Route path="/footwear" element={<Footwear items={items} setItems={setItems}/>} />
           <Route path="/accessories" element={<Accessories items={items} setItems={setItems}/>} />
+          <Route path="/outerwear/jackets" element={<Jackets items={items} setItems={setItems} />} />
+          <Route path="/outerwear/coats" element={<Coats items={items} setItems={setItems} />} />
+          <Route path="/outerwear/trenchcoats" element={<TrenchCoats items={items} setItems={setItems} />} />
+          <Route path="/outerwear/tailoring" element={<Tailoring items={items} setItems={setItems} />} />
+          <Route path="/outerwear/fur" element={<Fur items={items} setItems={setItems} />} />
+          <Route path="/outerwear/down" element={<Down items={items} setItems={setItems} />} />
           <Route path="/items/:id" element={<SelectedItem/>} /> 
         </Routes>
       </BrowserRouter>
