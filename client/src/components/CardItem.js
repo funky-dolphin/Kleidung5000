@@ -9,10 +9,9 @@ const CardItem = ({
   size,
   condition,
   price,
-  item,
   color,
+  item,
 }) => {
-  console.log("CardItem", brand);
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/items/${item.id}`);
@@ -27,6 +26,7 @@ const CardItem = ({
         <Card.Img variant="top" src={image} />
         <Card.Text>{brand}</Card.Text>
         <Card.Text>{name}</Card.Text>
+        <Card.Text>Color: {color}</Card.Text>
         <Card.Text>Size: {size}</Card.Text>
         <Card.Text>Condition: {condition}</Card.Text>
         <Card.Text>Price: ${price}</Card.Text>

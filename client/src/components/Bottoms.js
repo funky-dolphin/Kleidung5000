@@ -2,13 +2,15 @@ import React, { useEffect } from "react";
 import CardItem from "./CardItem";
 import "../styles.css";
 
-function Bottoms({ items, setItems }) {
+function Bottoms({ search, setSearch, items, setItems }) {
   useEffect(() => {
     fetch("http://127.0.0.1:5555/itemsbytype/3")
       .then((res) => res.json())
       .then((data) => setItems(data));
   }, []);
-
+  const searchItems = items.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">
       <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
@@ -16,17 +18,18 @@ function Bottoms({ items, setItems }) {
       </h3>
       {
         <ul className="d-flex flex-wrap justify-content-center">
-          {items.map((item) => {
+          {searchItems.map((item) => {
             return (
               <CardItem
-                item={item}
                 key={item.id}
                 image={item.image}
-                brand={item.brand_id}
+                brand={item.brand.brand}
                 name={item.name}
-                size={item.size_id}
+                color={item.color}
+                size={item.size.size}
                 condition={item.condition}
                 price={item.price}
+                item={item}
               />
             );
           })}
