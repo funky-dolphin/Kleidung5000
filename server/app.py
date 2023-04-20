@@ -5,9 +5,9 @@ from config import app, bcrypt
 
 
 api = Api(app)
-app.secret_key = 'sick key bro'
+app.secret_key = 'c5ca72e12d6aac51f6bb8544'
 
-@app.before_request
+# @app.before_request
 def checkSession():
     print(session.get("user_id")," is the user id session")
 class Signup(Resource):

@@ -46,6 +46,7 @@ function Shop({setItems}) {
             image={item.image}
             brand={item.brand.brand}
             name={item.name}
+            color={item.color}
             size={item.size.size}
             condition={item.condition}
             price = {item.price}
