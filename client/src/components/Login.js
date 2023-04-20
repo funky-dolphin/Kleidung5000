@@ -18,14 +18,16 @@ function handleChange(e) {
   function handleSubmit(e) {
     e.preventDefault();
     fetch("http://127.0.0.1:5555/login", {
-      method: "POST",
+      method: "POST",   
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
+      credentials: 'include'
     })
       .then((r) => r.json())
-      .then((data) => setUser(data));
+      .then((data) => setUser(data))
+      .catch(e=>console.log(e));
   }
   return (
     <Container>

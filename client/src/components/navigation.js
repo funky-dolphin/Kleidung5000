@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-function Navigation({user,setUser}) {
+function Navigation({user, setUser}) {
   const [showOuterwear, setShowOuterwear] = useState(false);
   const [showTops, setShowTops] = useState(false);
   const [showBottoms, setShowBottoms] = useState(false);

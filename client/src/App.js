@@ -23,9 +23,18 @@ function App() {
   console.log(user)
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5555/check_session").then((response) => {
-      if (response.ok) {
-        response.json().then((user) => setUser(user));
+    fetch("http://127.0.0.1:5555/check_session", {
+      headers:{
+        withCredentials: true,    
+        crossorigin: true,    
+        mode: 'no-cors'
+      }
+    })
+    .then((response) => {
+      console.log(response)
+      if (response.ok) {response.json()
+      .then(user => setUser(user))
+      .catch ((e) => console.log(e));
       }
     });
   }, []);
