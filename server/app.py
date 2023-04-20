@@ -2,12 +2,11 @@ from flask import request, make_response, jsonify, session
 from flask_restful import Resource, Api
 from models import db, User, Type,Item, SubType, Brand, Transaction, Size, Message, FavoriteItem
 from config import app, bcrypt
-
+from sqlalchemy import or_
 
 api = Api(app)
 app.secret_key = 'c5ca72e12d6aac51f6bb8544'
 
-# @app.before_request
 def checkSession():
     print(session.get("user_id")," is the user id session")
 class Signup(Resource):
@@ -70,15 +69,12 @@ class CheckSession(Resource):
 api.add_resource(CheckSession, '/check_session')
 # AUTHORIZED
 class Logout(Resource):
-
-    def delete(self):
-        if not session['user_id']:
-            return {'error': 'Unauthorized'}, 401
-        
-        session['user_id'] = None
-        return {'message': '204: No Content'}, 204
+    def post(self):
+        session['user_id'] = None 
+        return {'message': "204, No Content"}, 204
 
 api.add_resource(Logout, '/logout')
+
 # AUTHORIZED
 class Users_By_Id(Resource):
     def patch(self, id):
@@ -186,17 +182,37 @@ class BrandsById(Resource):
         return brand.to_dict(), 200
 api.add_resource(BrandsById, '/brands/<int:id>')
 # AUTHORIZED
-class Transactions(Resource):
-    def get(self):
+class TransactionsByParticipant(Resource):
+    def get(self,user_id):
         if not session['user_id']:
             return {'error': 'Unauthorized'}, 401
         
-        transactions = Transaction.query.all()
-        transaction_dict = [transaction.to_dict() for transaction in transactions]
+        transactions = Transaction.query.filter(or_(Transaction.buyer_id == user_id, Transaction.seller_id == user_id)).all()
+        transaction_dict = [transaction.to_dict(rules=('users',)) for transaction in transactions]
         return make_response(
             transaction_dict,
             200
         )
+api.add_resource(TransactionsByParticipant, '/transactions/<int:user_id>')
+
+class Transactions(Resource):       
+    def post(self):
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+        
+        data = request.get_json()
+        transaction = Transaction(
+            image=data['image'],
+            buyer_id = data['buyer_id'],
+            seller_id = data['seller_id'],
+            price = data['price'],
+            item_id = data['item_id'],
+            item_name=data['item_name']
+
+        )
+        db.session.add(transaction)
+        db.session.commit()
+        return make_response(transaction.to_dict(), 201)
     
 api.add_resource(Transactions, '/transactions')
 # AUTHORIZED

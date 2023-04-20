@@ -128,10 +128,13 @@ class Transaction(db.Model, SerializerMixin):
     seller_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     price = db.Column(db.Float, db.ForeignKey('items.price'))
     item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
+    item_name = db.Column(db.String, db.ForeignKey('items.name'))
+    image = db.Column(db.String, db.ForeignKey('items.image'))
 
     users = db.relationship('User', back_populates = 'transactions')
+  
 
-    serialize_rules = ('-users',)
+    serialize_rules = ('-users','-created_at')
 
 
 class Message(db.Model, SerializerMixin):

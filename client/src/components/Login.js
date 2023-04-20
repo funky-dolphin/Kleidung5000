@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
-
+import { useNavigate } from "react-router-dom";
 
 function Login({setUser}) {
 
@@ -8,6 +8,7 @@ function Login({setUser}) {
     username: "",
     password: ""
 })
+const navigate = useNavigate()
 
 function handleChange(e) {
   const { name, value } = e.target;
@@ -31,12 +32,14 @@ function handleChange(e) {
           throw new Error('Error: ${r.status} - ${r.statusText}');
         }
         return r.json();
+        
       })
       .then((data) => 
         setUser(data))
       .catch((error)=>{
         console.error("error during fetch:", error);
       });
+      navigate("/")
     }
   
   return (

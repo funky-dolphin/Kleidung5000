@@ -21,7 +21,7 @@ function Shop({ setItems }) {
   const [displayItems, setDisplayItems] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5555/items")
+    fetch("/items")
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
