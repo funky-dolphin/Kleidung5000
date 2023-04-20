@@ -8,7 +8,7 @@ function ShopPage({ items, setItems }) {
   useEffect(() => {
     fetch("http://127.0.0.1:5555/items")
       .then((res) => res.json())
-      .then((data) => setItems(data));
+      .then((data) => setItems((data) => data));
   }, []);
 
   useEffect(() => {
@@ -39,9 +39,10 @@ function ShopPage({ items, setItems }) {
                 image={item.image}
                 brand={getBrandNameById(item.brand_id)}
                 name={item.name}
-                size={item.size.size}
+                size={item.size_id.size}
                 condition={item.condition}
                 price={item.price}
+                color={item.color}
               />
             );
           })}

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles.css";
 import CardItem from "./CardItem";
 
-function Shop({setItems}) {
+function Shop({ setItems }) {
   const navigate = useNavigate();
 
   const handleShopClick = () => {
@@ -32,28 +32,33 @@ function Shop({setItems}) {
 
   return (
     <span>
-    <div className="d-flex flex-column align-items-center pt-5 text-center">
-      <div className="mb-3">
-        <Button onClick={handleShopClick}>Shop Items</Button>
+      <div className="d-flex flex-column align-items-center pt-5 text-center">
+        <div className="mb-3">
+          <Button onClick={handleShopClick}>Shop Items</Button>
+        </div>
+        <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
+          KLEIDUNG'S Selects
+        </h3>
+        {
+          <ul className="d-flex flex-wrap justify-content-center">
+            {displayItems.map((item) => {
+              return (
+                <CardItem
+                  key={item.id}
+                  image={item.image}
+                  brand={item.brand.brand}
+                  name={item.name}
+                  size={item.size.size}
+                  condition={item.condition}
+                  price={item.price}
+                  item={item}
+                  color={item.color}
+                />
+              );
+            })}
+          </ul>
+        }
       </div>
-      <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
-        KLEIDUNG'S Selects
-      </h3>
-      {<ul className="d-flex flex-wrap justify-content-center" >
-        {displayItems.map((item) => {
-          return <CardItem
-            key={item.id}
-            image={item.image}
-            brand={item.brand.brand}
-            name={item.name}
-            size={item.size.size}
-            condition={item.condition}
-            price = {item.price}
-            item = {item}
-          />
-        })}
-      </ul>}
-    </div>
     </span>
   );
 }

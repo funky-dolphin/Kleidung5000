@@ -62,6 +62,7 @@ function SelectedItem() {
           size={getBrandSize(selectedItem.size_id)}
           condition={selectedItem.condition}
           price={selectedItem.price}
+          color={selectedItem.color}
         />
         <div className="d-flex flex-column align-items-center m1-3">
           <button className="btn btn-primary mb-2">Buy Now</button>

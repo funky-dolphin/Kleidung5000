@@ -13,6 +13,7 @@ db = SQLAlchemy(metadata=metadata)
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
+# CORS(app)
 CORS(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'

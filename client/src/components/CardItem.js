@@ -2,7 +2,16 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const CardItem = ({ image, brand, name, size, condition, price, item }) => {
+const CardItem = ({
+  image,
+  brand,
+  name,
+  size,
+  condition,
+  price,
+  item,
+  color,
+}) => {
   console.log("CardItem", brand);
   const navigate = useNavigate();
   const handleClick = () => {
@@ -21,6 +30,7 @@ const CardItem = ({ image, brand, name, size, condition, price, item }) => {
         <Card.Text>Size: {size}</Card.Text>
         <Card.Text>Condition: {condition}</Card.Text>
         <Card.Text>Price: ${price}</Card.Text>
+        <Card.Text>Color: {color}</Card.Text>
       </Card>
     </div>
   );

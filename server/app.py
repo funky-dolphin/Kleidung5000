@@ -256,10 +256,11 @@ class Items(Resource):
         return items_dict, 200
   
     def post(self):
-        if not session['user_id']:
-            return {'error': 'Unauthorized'}, 401
+        # if not session['user_id']:
+        #     return {'error': 'Unauthorized'}, 401
         
         data = request.get_json()
+        print("Received data:", data)
         new_item = Item(
             condition = data['condition'],
             image = data['image'], 
@@ -267,7 +268,7 @@ class Items(Resource):
             name = data['name'], 
             price = data['price'], 
             for_sale = data['for_sale'], 
-            owner_id = data['owner_id'], 
+            # owner_id = data['owner_id'], 
             type_id = data['type_id'], 
             subtype_id = data['subtype_id'], 
             size_id = data['size_id'], 
@@ -275,6 +276,8 @@ class Items(Resource):
         )
         db.session.add(new_item)
         db.session.commit()
+
+        print("Created item:", new_item.to_dict())
         return make_response(new_item.to_dict(), 201)
     
 api.add_resource(Items, '/items')
