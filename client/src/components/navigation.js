@@ -69,12 +69,22 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
   };
  
 
-    function handleLogout() {
-      fetch("/logout", {
+  async function handleLogout() {
+    try {
+      const response = await fetch("/logout", {
         method: "POST",
-      }).then(() => setUser());
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Logout failed with status: ${response.status}`);
+      }
+  
+      setUser(null);
       window.location.reload();
+    } catch (error) {
+      console.error("Error logging out:", error);
     }
+  }
 
     function handleSearch(e){
       setSearch(e.target.value)
@@ -170,7 +180,7 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
           </Nav>
           <Form className="navbar-form">
             <div className="d-flex align-items-center">
-              {user === null ?(
+              {user == null &&(
               <Button
                 variant="outline-primary"
                 onClick={handleLoginClick}
@@ -178,16 +188,17 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
               >
                 Login
               </Button>
-              ) : (
+              )}
+              {user &&(
               <Button
                 variant="outline-primary"
                 onClick={handleLogout}
-                className="logiut-button"
+                className="logout-button"
               >
                 Logout
               </Button>
-              )
-}
+              )}
+              {user === null && (
               <Button
                 variant="outline-primary"
                 onClick={handleRegisterClick}
@@ -195,6 +206,7 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
               >
                 Register
               </Button>
+              )}
               {user && (
               <Button
                 variant="outline-primary"

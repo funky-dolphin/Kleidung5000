@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
-
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [user, setUser]= useState([])
@@ -10,6 +10,8 @@ function Register() {
   const [registerPaypall_address, setRegisterPaypall_address] = useState('')
   const [registerZipcode, setRegisterZipcode] = useState(0)
   const [registerPassword, setRegisterPassword] = useState('')
+
+  const navigate = useNavigate()
 
   function handleSubmit(e){
     e.preventDefault()
@@ -30,6 +32,7 @@ function Register() {
     })
     .then(res=>res.json())
     .then(data=>setUser(data))
+    navigate("/login")
   }
  
   return (

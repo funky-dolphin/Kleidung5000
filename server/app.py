@@ -4,11 +4,9 @@ from models import db, User, Type,Item, SubType, Brand, Transaction, Size, Messa
 from config import app, bcrypt
 from sqlalchemy import or_
 
-
 api = Api(app)
 app.secret_key = 'c5ca72e12d6aac51f6bb8544'
 
-# @app.before_request
 def checkSession():
     print(session.get("user_id")," is the user id session")
 class Signup(Resource):
@@ -72,12 +70,11 @@ api.add_resource(CheckSession, '/check_session')
 # AUTHORIZED
 class Logout(Resource):
     def post(self):
-        if not session['user_id']:
-            return {'error': 'Unauthorized'}, 401
         session['user_id'] = None 
         return {'message': "204, No Content"}, 204
 
 api.add_resource(Logout, '/logout')
+
 # AUTHORIZED
 class Users_By_Id(Resource):
     def patch(self, id):
