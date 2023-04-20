@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CardItem from "./CardItem";
 import "../styles.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 function SelectedItem() {
   const [selectedItem, setSelectedItem] = useState({});
   const [brands, setBrands] = useState([]);
   const [sizes, setSizes] = useState([]);
+  const [isLiked, setLiked] = useState(false);
 
   let params = useParams();
   console.log(params);
@@ -39,6 +42,11 @@ function SelectedItem() {
     return size ? size.size : "";
   };
 
+  const handleAddToLikes = () => {
+    setLiked(!isLiked);
+    console.log("liked");
+  };
+
   return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">
       <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
@@ -55,7 +63,24 @@ function SelectedItem() {
           condition={selectedItem.condition}
           price={selectedItem.price}
         />
-        ;
+        <div className="d-flex flex-column align-items-center m1-3">
+          <button className="btn btn-primary mb-2">Buy Now</button>
+          {/* <button
+            className={`btn ${isLiked ? "text-danger" : "text-secondary"}`}
+            onClick={handleAddToLikes}
+          >
+            <i className="fas fa-heart"></i>
+          </button> */}
+          <FontAwesomeIcon
+            className="liked-icon"
+            style={{
+              color: isLiked ? "red" : "white",
+              cursor: "pointer",
+            }}
+            icon={faHeart}
+            onClick={handleAddToLikes}
+          />
+        </div>
       </ul>
     </div>
   );

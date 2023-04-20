@@ -83,3 +83,8 @@ ul {
 .hover-dropdown:hover .dropdown-menu {
   display: block !important;
 }
+
+.liked-icon {
+  color: white;
+  scale: 125%;
+}
