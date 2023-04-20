@@ -14,6 +14,7 @@ db = SQLAlchemy(metadata=metadata)
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
+# CORS(app)
 CORS(app)
 
 app.config['SECRET_KEY']='c5ca72e12d6aac51f6bb8544'

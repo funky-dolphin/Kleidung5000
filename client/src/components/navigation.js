@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-function Navigation({user,setUser, search, setSearch, items, setItems}) {
+function Navigation({ user, setUser, search, setSearch, items, setItems }) {
   const [showOuterwear, setShowOuterwear] = useState(false);
   const [showTops, setShowTops] = useState(false);
   const [showBottoms, setShowBottoms] = useState(false);
@@ -40,34 +40,33 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
     navigate("/");
   };
 
-  const handleGetOuterwear = () =>{
-    navigate("/outerwear")
-  }
+  const handleGetOuterwear = () => {
+    navigate("/outerwear");
+  };
 
-  const handleGetTops = () =>{
-    navigate("/tops")
-  }
+  const handleGetTops = () => {
+    navigate("/tops");
+  };
 
-  const handleGetBottoms = () =>{
-    navigate("/bottoms")
-  }
+  const handleGetBottoms = () => {
+    navigate("/bottoms");
+  };
 
-  const handleGetFootwear = () =>{
-    navigate("/footwear")
-  }
+  const handleGetFootwear = () => {
+    navigate("/footwear");
+  };
 
-  const handleGetAccessories = () =>{
-    navigate("/accessories")
-  }
+  const handleGetAccessories = () => {
+    navigate("/accessories");
+  };
 
   const handleLikesClick = () => {
     navigate("/likes");
   };
 
   const handleTransactionsClick = () => {
-    navigate("/transactions")
+    navigate("/transactions");
   };
- 
 
   async function handleLogout() {
     try {
@@ -86,10 +85,10 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
     }
   }
 
-    function handleSearch(e){
-      setSearch(e.target.value)
-    }
-    
+  function handleSearch(e) {
+    setSearch(e.target.value);
+  }
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -100,27 +99,30 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <NavDropdown
-              title="Outerwear" 
-              onClick = {handleGetOuterwear}
+              title="Outerwear"
+              onClick={handleGetOuterwear}
               id="basic-nav-dropdown"
               show={showOuterwear}
               onMouseEnter={() => setShowOuterwear(true)}
               onMouseLeave={() => setShowOuterwear(false)}
               className="hover-dropdown"
             >
-              <NavDropdown.Item href="/outerwear/jackets">Jackets
+              <NavDropdown.Item href="/outerwear/jackets">
+                Jackets
               </NavDropdown.Item>
               <NavDropdown.Item href="/outerwear/coats">Coats</NavDropdown.Item>
               <NavDropdown.Item href="/outerwear/trenchcoats">
                 Trench Coats{" "}
               </NavDropdown.Item>
-              <NavDropdown.Item href="/outerwear/tailoring">Tailoring</NavDropdown.Item>
+              <NavDropdown.Item href="/outerwear/tailoring">
+                Tailoring
+              </NavDropdown.Item>
               <NavDropdown.Item href="/outerwear/fur">Fur</NavDropdown.Item>
               <NavDropdown.Item href="/outerwear/down">Down</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
               title="Tops"
-              onClick = {handleGetTops}
+              onClick={handleGetTops}
               show={showTops}
               onMouseEnter={() => setShowTops(true)}
               onMouseLeave={() => setShowTops(false)}
@@ -128,31 +130,43 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
               className="hover-dropdown"
             >
               <NavDropdown.Item href="/tops/knits">Knits</NavDropdown.Item>
-              <NavDropdown.Item href="/tops/sweatshirts">Sweatshirts</NavDropdown.Item>
+              <NavDropdown.Item href="/tops/sweatshirts">
+                Sweatshirts
+              </NavDropdown.Item>
               <NavDropdown.Item href="/tops/tshirts">T-Shirts</NavDropdown.Item>
               <NavDropdown.Item href="/tops/tanks">Tanks</NavDropdown.Item>
-              <NavDropdown.Item href="/tops/buttonups">ButtonUps</NavDropdown.Item>
+              <NavDropdown.Item href="/tops/buttonups">
+                ButtonUps
+              </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
               title="Bottoms"
-              onClick = {handleGetBottoms}
+              onClick={handleGetBottoms}
               id="basic-nav-dropdown"
               show={showBottoms}
               onMouseEnter={() => setShowBottoms(true)}
               onMouseLeave={() => setShowBottoms(false)}
               className="hover-dropdown"
             >
-              <NavDropdown.Item href="/bottoms/trousers">Trousers</NavDropdown.Item>
+              <NavDropdown.Item href="/bottoms/trousers">
+                Trousers
+              </NavDropdown.Item>
               <NavDropdown.Item href="/bottoms/jeans">Jeans</NavDropdown.Item>
               <NavDropdown.Item href="/bottoms/cargo">Cargo</NavDropdown.Item>
-              <NavDropdown.Item href="/bottoms/leather">Leather</NavDropdown.Item>
-              <NavDropdown.Item href="/bottoms/sweatpants">Sweatpants</NavDropdown.Item>
+              <NavDropdown.Item href="/bottoms/leather">
+                Leather
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/bottoms/sweatpants">
+                Sweatpants
+              </NavDropdown.Item>
               <NavDropdown.Item href="/bottoms/shorts">Shorts</NavDropdown.Item>
-              <NavDropdown.Item href="/bottoms/swimwear">Swimwear</NavDropdown.Item>
+              <NavDropdown.Item href="/bottoms/swimwear">
+                Swimwear
+              </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
               title="Footwear"
-              onClick = {handleGetFootwear}
+              onClick={handleGetFootwear}
               id="basic-nav-dropdown"
               show={showFootwear}
               onMouseEnter={() => setShowFootwear(true)}
@@ -160,26 +174,45 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
               className="hover-dropdown"
             >
               <NavDropdown.Item href="/footwear/boots">Boots</NavDropdown.Item>
-              <NavDropdown.Item href="/footwear/sneakers">Sneakers</NavDropdown.Item>
-              <NavDropdown.Item href="/footwear/sandals">Sandals</NavDropdown.Item>
-              <NavDropdown.Item href="/footwear/laceups">Lace Ups</NavDropdown.Item>
+              <NavDropdown.Item href="/footwear/sneakers">
+                Sneakers
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/footwear/sandals">
+                Sandals
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/footwear/laceups">
+                Lace Ups
+              </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
               title="Accessories"
-              onClick = {handleGetAccessories}
+              onClick={handleGetAccessories}
               id="basic-nav-dropdown"
               show={showAccessories}
               onMouseEnter={() => setShowAccessories(true)}
               onMouseLeave={() => setShowAccessories(false)}
               className="hover-dropdown"
             >
-              <NavDropdown.Item href="/accessories/jewelry">Jewelry</NavDropdown.Item>
-              <NavDropdown.Item href="/accessories/glasses">Glasses</NavDropdown.Item>
+              <NavDropdown.Item href="/accessories/jewelry">
+                Jewelry
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/accessories/glasses">
+                Glasses
+              </NavDropdown.Item>
               <NavDropdown.Item href="/accessories/bags">Bags</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Form className="navbar-form">
             <div className="d-flex align-items-center">
+              
+              <Button
+                variant="outline-primary"
+                onClick={() => navigate("/additem")}
+                className="add-item-button"
+              >
+                Add an Item
+              </Button>
+              
               {user == null &&(
               <Button
                 variant="outline-primary"
@@ -218,7 +251,12 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
               </Button>
               )}
             </div>
-            <FormControl type="text" placeholder="Search kleidung" value={search} onChange ={handleSearch}/>
+            <FormControl
+              type="text"
+              placeholder="Search kleidung"
+              value={search}
+              onChange={handleSearch}
+            />
             <FontAwesomeIcon
               className="heart-icon"
               icon={faHeart}
