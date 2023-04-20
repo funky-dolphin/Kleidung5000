@@ -3,8 +3,6 @@ from flask_restful import Resource, Api
 from models import db, User, Type,Item, SubType, Brand, Transaction, Size, Message, FavoriteItem
 from config import app, bcrypt
 
-
-server_session = Session(app)
 api = Api(app)
 app.secret_key = 'c5ca72e12d6aac51f6bb8544'
 
