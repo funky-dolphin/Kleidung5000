@@ -67,12 +67,7 @@ function Navigation() {
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand
-          onClick={handleHomeClick}
-          href="#home"
-          className="glitch"
-          data-text="KLEIDUNG5000"
-        >
+        <Navbar.Brand onClick={handleHomeClick} href="#home">
           KLEIDUNG5000
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
