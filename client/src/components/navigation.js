@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-function Navigation() {
+function Navigation({ user, setUser, search, setSearch, items, setItems }) {
   const [showOuterwear, setShowOuterwear] = useState(false);
   const [showTops, setShowTops] = useState(false);
   const [showBottoms, setShowBottoms] = useState(false);
@@ -40,29 +40,43 @@ function Navigation() {
     navigate("/");
   };
 
-  const handleGetOuterwear = () =>{
-    navigate("/outerwear")
-  }
+  const handleGetOuterwear = () => {
+    navigate("/outerwear");
+  };
 
-  const handleGetTops = () =>{
-    navigate("/tops")
-  }
+  const handleGetTops = () => {
+    navigate("/tops");
+  };
 
-  const handleGetBottoms = () =>{
-    navigate("/bottoms")
-  }
+  const handleGetBottoms = () => {
+    navigate("/bottoms");
+  };
 
-  const handleGetFootwear = () =>{
-    navigate("/footwear")
-  }
+  const handleGetFootwear = () => {
+    navigate("/footwear");
+  };
 
-  const handleGetAccessories = () =>{
-    navigate("/accessories")
-  }
+  const handleGetAccessories = () => {
+    navigate("/accessories");
+  };
 
   const handleLikesClick = () => {
     navigate("/likes");
   };
+
+  const handleTransactionsClick = () => {
+    navigate("/transactions");
+  };
+
+  function handleLogout() {
+    fetch("/logout", {
+      method: "DELETE",
+    }).then(() => setUser());
+  }
+
+  function handleSearch(e) {
+    setSearch(e.target.value);
+  }
 
   return (
     <div className="App">
@@ -74,83 +88,118 @@ function Navigation() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <NavDropdown
-              title="Outerwear" 
-              onClick = {handleGetOuterwear}
+              title="Outerwear"
+              onClick={handleGetOuterwear}
               id="basic-nav-dropdown"
               show={showOuterwear}
               onMouseEnter={() => setShowOuterwear(true)}
               onMouseLeave={() => setShowOuterwear(false)}
               className="hover-dropdown"
             >
-              <NavDropdown.Item href="/outerwear/jackets">Jackets
+              <NavDropdown.Item href="/outerwear/jackets">
+                Jackets
               </NavDropdown.Item>
               <NavDropdown.Item href="/outerwear/coats">Coats</NavDropdown.Item>
               <NavDropdown.Item href="/outerwear/trenchcoats">
                 Trench Coats{" "}
               </NavDropdown.Item>
-              <NavDropdown.Item href="/outerwear/tailoring">Tailoring</NavDropdown.Item>
+              <NavDropdown.Item href="/outerwear/tailoring">
+                Tailoring
+              </NavDropdown.Item>
               <NavDropdown.Item href="/outerwear/fur">Fur</NavDropdown.Item>
               <NavDropdown.Item href="/outerwear/down">Down</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
               title="Tops"
-              onClick = {handleGetTops}
+              onClick={handleGetTops}
               show={showTops}
               onMouseEnter={() => setShowTops(true)}
               onMouseLeave={() => setShowTops(false)}
               id="basic-nav-dropdown"
               className="hover-dropdown"
             >
-              <NavDropdown.Item href="#action/3.1">Knits</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
+              <NavDropdown.Item href="/tops/knits">Knits</NavDropdown.Item>
+              <NavDropdown.Item href="/tops/sweatshirts">
                 Sweatshirts
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">T-Shirts</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.4">Tanks</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.5">ButtonUps</NavDropdown.Item>
+              <NavDropdown.Item href="/tops/tshirts">T-Shirts</NavDropdown.Item>
+              <NavDropdown.Item href="/tops/tanks">Tanks</NavDropdown.Item>
+              <NavDropdown.Item href="/tops/buttonups">
+                ButtonUps
+              </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
               title="Bottoms"
-              onClick = {handleGetBottoms}
+              onClick={handleGetBottoms}
               id="basic-nav-dropdown"
               show={showBottoms}
               onMouseEnter={() => setShowBottoms(true)}
               onMouseLeave={() => setShowBottoms(false)}
               className="hover-dropdown"
             >
-              <NavDropdown.Item href="#action/3.1">Jeans</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Trousers</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Shorts</NavDropdown.Item>
+              <NavDropdown.Item href="/bottoms/trousers">
+                Trousers
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/bottoms/jeans">Jeans</NavDropdown.Item>
+              <NavDropdown.Item href="/bottoms/cargo">Cargo</NavDropdown.Item>
+              <NavDropdown.Item href="/bottoms/leather">
+                Leather
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/bottoms/sweatpants">
+                Sweatpants
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/bottoms/shorts">Shorts</NavDropdown.Item>
+              <NavDropdown.Item href="/bottoms/swimwear">
+                Swimwear
+              </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
               title="Footwear"
-              onClick = {handleGetFootwear}
+              onClick={handleGetFootwear}
               id="basic-nav-dropdown"
               show={showFootwear}
               onMouseEnter={() => setShowFootwear(true)}
               onMouseLeave={() => setShowFootwear(false)}
               className="hover-dropdown"
             >
-              <NavDropdown.Item href="#action/3.1">Sneakers</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Boots</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Sandals</NavDropdown.Item>
+              <NavDropdown.Item href="/footwear/boots">Boots</NavDropdown.Item>
+              <NavDropdown.Item href="/footwear/sneakers">
+                Sneakers
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/footwear/sandals">
+                Sandals
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/footwear/laceups">
+                Lace Ups
+              </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
               title="Accessories"
-              onClick = {handleGetAccessories}
+              onClick={handleGetAccessories}
               id="basic-nav-dropdown"
               show={showAccessories}
               onMouseEnter={() => setShowAccessories(true)}
               onMouseLeave={() => setShowAccessories(false)}
               className="hover-dropdown"
             >
-              <NavDropdown.Item href="#action/3.1">Bags</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Jewelry</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Glasses</NavDropdown.Item>
+              <NavDropdown.Item href="/accessories/jewelry">
+                Jewelry
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/accessories/glasses">
+                Glasses
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/accessories/bags">Bags</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Form className="navbar-form">
             <div className="d-flex align-items-center">
+              <Button
+                variant="outline-primary"
+                onClick={() => navigate("/additem")}
+                className="add-item-button"
+              >
+                Add an Item
+              </Button>
               <Button
                 variant="outline-primary"
                 onClick={handleLoginClick}
@@ -160,14 +209,32 @@ function Navigation() {
               </Button>
               <Button
                 variant="outline-primary"
+                onClick={handleLogout}
+                className="logiut-button"
+              >
+                Logout
+              </Button>
+              <Button
+                variant="outline-primary"
                 onClick={handleRegisterClick}
                 className="login-button"
               >
                 Register
               </Button>
+              <Button
+                variant="outline-primary"
+                onClick={handleTransactionsClick}
+                className="transactions-button"
+              >
+                Transactions
+              </Button>
             </div>
-            <Button variant="outline-success">Search</Button>
-            <FormControl type="text" placeholder="Find your kleidung" />
+            <FormControl
+              type="text"
+              placeholder="Search kleidung"
+              value={search}
+              onChange={handleSearch}
+            />
             <FontAwesomeIcon
               className="heart-icon"
               icon={faHeart}

@@ -1,11 +1,15 @@
 from flask import request, make_response, jsonify, session
 from flask_restful import Resource, Api
-from models import db, User, Type, SubType, Brand, Transaction, Size, Message, FavoriteItem
+from models import db, User, Type,Item, SubType, Brand, Transaction, Size, Message, FavoriteItem
 from config import app, bcrypt
-from models import Item
+
 
 api = Api(app)
+app.secret_key = 'c5ca72e12d6aac51f6bb8544'
 
+# @app.before_request
+def checkSession():
+    print(session.get("user_id")," is the user id session")
 class Signup(Resource):
     def get(self):
         user = User.query.filter(User.id == session.get('user_id')).first()
@@ -36,6 +40,7 @@ api.add_resource(Signup, '/signup')
 class Login(Resource):
     def post(self):
         data = request.get_json()
+        print("Received data:", data)
         username = data['username']
         user = User.query.filter(User.username == username).first()
 
@@ -46,13 +51,16 @@ class Login(Resource):
 
         if user.authenticate(password):
             session['user_id'] = user.id
+            print(session.get('user_id')," is the session data")
             return user.to_dict(), 200
+        
 
 api.add_resource(Login, '/login')
 
 class CheckSession(Resource):
 
     def get(self):
+        print(session.get('user_id'),"this is the session data")
         user = User.query.filter(User.id == session.get('user_id')).first()
         if user:
             return user.to_dict()
@@ -256,10 +264,11 @@ class Items(Resource):
         return items_dict, 200
   
     def post(self):
-        if not session['user_id']:
-            return {'error': 'Unauthorized'}, 401
+        # if not session['user_id']:
+        #     return {'error': 'Unauthorized'}, 401
         
         data = request.get_json()
+        print("Received data:", data)
         new_item = Item(
             condition = data['condition'],
             image = data['image'], 
@@ -267,7 +276,7 @@ class Items(Resource):
             name = data['name'], 
             price = data['price'], 
             for_sale = data['for_sale'], 
-            owner_id = data['owner_id'], 
+            # owner_id = data['owner_id'], 
             type_id = data['type_id'], 
             subtype_id = data['subtype_id'], 
             size_id = data['size_id'], 
@@ -275,6 +284,8 @@ class Items(Resource):
         )
         db.session.add(new_item)
         db.session.commit()
+
+        print("Created item:", new_item.to_dict())
         return make_response(new_item.to_dict(), 201)
     
 api.add_resource(Items, '/items')
