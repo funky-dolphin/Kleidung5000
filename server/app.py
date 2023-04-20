@@ -264,8 +264,13 @@ class Items(Resource):
         return items_dict, 200
   
     def post(self):
-        # if not session['user_id']:
-        #     return {'error': 'Unauthorized'}, 401
+        print("SESSION IS:", session.get('user_id'))
+        user_id = User.query.filter(User.id == session.get('user_id')).first()
+        print("User ID is:",user_id)
+
+
+        if not user_id:
+            return {'error': 'Unauthorized'}, 401
         
         data = request.get_json()
         print("Received data:", data)
@@ -276,7 +281,7 @@ class Items(Resource):
             name = data['name'], 
             price = data['price'], 
             for_sale = data['for_sale'], 
-            # owner_id = data['owner_id'], 
+            owner_id = user_id.id,
             type_id = data['type_id'], 
             subtype_id = data['subtype_id'], 
             size_id = data['size_id'], 

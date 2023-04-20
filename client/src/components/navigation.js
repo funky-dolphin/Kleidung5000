@@ -11,7 +11,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles.css";
 import profileImage from "../testpp.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 

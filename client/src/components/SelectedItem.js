@@ -4,12 +4,15 @@ import CardItem from "./CardItem";
 import "../styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 function SelectedItem() {
   const [selectedItem, setSelectedItem] = useState({});
   const [brands, setBrands] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [isLiked, setLiked] = useState(false);
+
+  const navigate = useNavigate();
 
   let params = useParams();
   console.log(params);
@@ -42,9 +45,70 @@ function SelectedItem() {
     return size ? size.size : "";
   };
 
-  const handleAddToLikes = () => {
-    setLiked(!isLiked);
-    console.log("liked");
+  // const handleAddToLikes = () => {
+  //   setLiked(!isLiked);
+  //   fetch("/favoriteitems", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(new_favorite),
+  //   }).then;
+  // };
+
+  const handleDeleteItem = () => {
+    fetch("/check_session")
+      .then((response) => response.json())
+      .then((user) => {
+        if (user.id === selectedItem.owner_id) {
+          fetch(`/items/${selectedItem.id}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log("Item deleted:", data);
+              navigate("/");
+              alert("Item deleted");
+            });
+        } else {
+          console.log("User cannot delete their own item.");
+          alert("User cannot delete their own item");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const handleBuyItem = () => {
+    fetch("/check_session")
+      .then((response) => response.json())
+      .then((user) => {
+        if (user.id !== selectedItem.owner_id) {
+          fetch(`/items/${selectedItem.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ owner_id: user.id }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log("item Purchased:", data);
+              navigate("/");
+              alert("Item Purchased, Enjoy your Kleidung!");
+            });
+        } else {
+          console.log("User cannot buy their own item.");
+          alert("Sorry, You cannot buy your own item.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error", error);
+      });
   };
 
   return (
@@ -65,7 +129,12 @@ function SelectedItem() {
           color={selectedItem.color}
         />
         <div className="d-flex flex-column align-items-center m1-3">
-          <button className="btn btn-primary mb-2">Buy Now</button>
+          <button onClick={handleBuyItem} className="btn btn-primary mb-2">
+            Buy Now
+          </button>
+          <button onClick={handleDeleteItem} className="btn btn-danger mb-2">
+            Delete Item
+          </button>
           {/* <button
             className={`btn ${isLiked ? "text-danger" : "text-secondary"}`}
             onClick={handleAddToLikes}
@@ -79,7 +148,7 @@ function SelectedItem() {
               cursor: "pointer",
             }}
             icon={faHeart}
-            onClick={handleAddToLikes}
+            // onClick={handleAddToLikes}
           />
         </div>
       </ul>
