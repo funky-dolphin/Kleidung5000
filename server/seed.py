@@ -167,9 +167,9 @@ with app.app_context():
     brands = [cdg, acronym, gucci, hermes, kikokostadinov, rickowens, doublet, kapital, paulsmith, prada, acne, dries,craiggreen, versace]
 
     print("Creating transactions...")
-    t1=Transaction(buyer_id = 1, seller_id=2, price=200, item_id=2)
-    t2=Transaction(buyer_id = 2, seller_id=1, price =100, item_id = 1)
-    t3=Transaction(buyer_id = 2, seller_id=3, price=400, item_id=4)
+    t1=Transaction(buyer_id = 1, seller_id=2, price=200, item_id=2, item_name="sick jacket")
+    t2=Transaction(buyer_id = 2, seller_id=1, price =100, item_id = 1, item_name="dope pants")
+    t3=Transaction(buyer_id = 2, seller_id=3, price=400, item_id=4, item_name="amazing necklace")
     transactions = [t1, t2, t3]
 
     print("Creating messages...")

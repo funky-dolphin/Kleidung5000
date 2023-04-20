@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 
+
 function Register() {
   const [user, setUser]= useState([])
   const [registerName, setRegisterName] = useState('')

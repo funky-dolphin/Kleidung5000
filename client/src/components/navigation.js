@@ -71,8 +71,9 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
 
     function handleLogout() {
       fetch("/logout", {
-        method: "DELETE",
+        method: "POST",
       }).then(() => setUser());
+      window.location.reload();
     }
 
     function handleSearch(e){
@@ -169,6 +170,7 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
           </Nav>
           <Form className="navbar-form">
             <div className="d-flex align-items-center">
+              {user === null ?(
               <Button
                 variant="outline-primary"
                 onClick={handleLoginClick}
@@ -176,6 +178,7 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
               >
                 Login
               </Button>
+              ) : (
               <Button
                 variant="outline-primary"
                 onClick={handleLogout}
@@ -183,6 +186,8 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
               >
                 Logout
               </Button>
+              )
+}
               <Button
                 variant="outline-primary"
                 onClick={handleRegisterClick}
@@ -190,13 +195,16 @@ function Navigation({user,setUser, search, setSearch, items, setItems}) {
               >
                 Register
               </Button>
+              {user && (
               <Button
                 variant="outline-primary"
                 onClick={handleTransactionsClick}
                 className="transactions-button"
+                user={user}
               >
                 Transactions
               </Button>
+              )}
             </div>
             <FormControl type="text" placeholder="Search kleidung" value={search} onChange ={handleSearch}/>
             <FontAwesomeIcon

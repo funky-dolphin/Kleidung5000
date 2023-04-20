@@ -6,24 +6,29 @@ const TransactionList = ({user}) => {
     const[transactions,setTransactions]=useState([])
     useEffect(()=>{
         if(user && user.id) {
-        fetch(`http://127.0.0.1:5555/favoriteitemsbyowner/${user.id}`)
+        fetch(`/transactions/${user.id}`)
         .then(res=>res.json())
         .then(data=>setTransactions(data));
         }
       },[user])
+
       console.log(setTransactions)
 
   return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">
       <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
-        Your Transactions
+        Your Purchases
       </h3>
         {<ul className="d-flex flex-wrap justify-content-center">
           {transactions.map((transaction) => {
             return <Transaction
-              transaction = {transaction}
+              transaction = {transaction.id}
               key={transaction.id}
+              seller_id={transaction.users.name}
               price={transaction.price}
+              name={transaction.item_name}
+              image={transaction.image}
+
             />;
           })}
         </ul>}
