@@ -3,27 +3,9 @@ import { useParams } from "react-router-dom";
 import CardItem from "./CardItem";
 import "../styles.css";
 
-const LikesPage = ({ user, items }) => {
-  // const [myItems, setMyItems] = useState([]);
+const LikesPage = ({ user }) => {
   const [favorites, setFavorites] = useState([]);
-  // let params = useParams();
 
-  // useEffect(() => {
-  //   fetch("/check_session")
-  //     .then((res) => res.json())
-  //     .then((user) => {
-  //       if (user.id === items.owner_id) {
-  //         fetch(`/items/${items.id}`, {
-  //           method: "GET",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //         })
-  //           .then((res) => res.json())
-  //           .then((data) => setMyItems(data));
-  //       }
-  //     });
-  // }, []);
   useEffect(() => {
     if (user && user.id) {
       fetch(`/itemsbyowner/${user.id}`, {

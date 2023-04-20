@@ -12,14 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 function AddItemForm({ brands, types, subtypes, sizes, user }) {
   const navigate = useNavigate();
-  //   const [formData, setFormData] = useState({
-  //     image: "",
-  //     brand_id: "",
-  //     name: "",
-  //     size: "",
-  //     condition: "",
-  //     price: "",
-  //   });
+
   const [formData, setFormData] = useState({});
   const [addImage, setAddImage] = useState("");
   const [addBrand, setAddBrand] = useState(null);
@@ -31,36 +24,8 @@ function AddItemForm({ brands, types, subtypes, sizes, user }) {
   const [addSubtypeId, setAddSubtypeId] = useState("");
   const [addColor, setAddColor] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-
-  //   const handleChange = (e) => {
-  //     setFormData({ ...formData, [e.target.name]: e.target.value });
-  //   };
-
-  //   const validateForm = () => {
-  //     // const imageUrlRegex =
-  //     //   /^https?:\/\/(?:[a-z0-9\-]+\.)+[a-z0-9]{2,6}(?:\/[^/#?]+)+\.(?:jpe?g|gif|png)$/;
-
-  //     if (
-  //       typeof addImage !== "string" ||
-  //       //   !imageUrlRegex.test(addImage) ||
-  //       typeof addName !== "string" ||
-  //       typeof addColor !== "string" ||
-  //       typeof addCondition !== "number" ||
-  //       addCondition <= 1 ||
-  //       addCondition >= 10 ||
-  //       typeof addPrice !== "number"
-  //     ) {
-  //       return false;
-  //     }
-  //     return true;
-  //   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (!validateForm()) {
-    //   alert("Please check the input values and correct any errors.");
-    //   return;
-    // }
 
     const new_item = {
       image: addImage,
@@ -91,14 +56,6 @@ function AddItemForm({ brands, types, subtypes, sizes, user }) {
         navigate("/");
         alert("Item added successfully");
       });
-
-    // fetch("/check_session", {
-    //   // credentials: "include",
-    // }).then((response) => {
-    //   if (response.ok) {
-    //     response.json().then((user) => setUser(user));
-    //   }
-    // });
   };
   return (
     <Container>
