@@ -100,7 +100,7 @@ function App() {
           />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/likes" element={<Likes user={user} />} />
+          <Route path="/likes" element={<Likes user={user} items={items} />} />
           <Route
             path="/transactions"
             element={<TransactionList user={user} />}
