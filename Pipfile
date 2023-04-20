@@ -18,7 +18,7 @@ flask-restful = "*"
 react-bootstrap = "*"
 bootstrap = "*"
 bcrypt = "*"
-redis = "*"
+requests = "*"
 
 [requires]
 python_full_version = "3.8.13"

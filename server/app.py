@@ -1,20 +1,16 @@
 from flask import request, make_response, jsonify, session
 from flask_restful import Resource, Api
-from models import db, User, Type, SubType, Brand, Transaction, Size, Message, FavoriteItem
+from models import db, User, Type,Item, SubType, Brand, Transaction, Size, Message, FavoriteItem
 from config import app, bcrypt
-from models import Item
-from flask_session import Session
+
 
 server_session = Session(app)
 api = Api(app)
-# app.secret_key = b'\xfe\x97\xb3\xc2h\x0b\xd5\xb7\xbbIR\x80b?\xca\xb0'
+app.secret_key = 'c5ca72e12d6aac51f6bb8544'
 
-@app.before_request
-def print_session():
-    if session.get('user_id'):
-        return make_response({"user_id":session.get('user_id')})
-    #return make_response({"error":"401 not authorized"},401)
-
+# @app.before_request
+def checkSession():
+    print(session.get("user_id")," is the user id session")
 class Signup(Resource):
     def get(self):
         user = User.query.filter(User.id == session.get('user_id')).first()
@@ -46,6 +42,7 @@ api.add_resource(Signup, '/signup')
 class Login(Resource):
     def post(self):
         data = request.get_json()
+        print("Received data:", data)
         username = data['username']
         user = User.query.filter(User.username == username).first()
 
@@ -55,21 +52,18 @@ class Login(Resource):
             return {'error': 'Invalid username or password'}, 401
 
         if user.authenticate(password):
-            
-            # session['user_id'] = user.id
-            # session.modified = True
-            # print(session)
-            response = make_response(user.to_dict(), 200)
-            response.set_cookie('user_id', "user" )
-            return response
+            session['user_id'] = user.id
+            print(session.get('user_id')," is the session data")
+            return user.to_dict(), 200
+        
 
 api.add_resource(Login, '/login')
 
 class CheckSession(Resource):
 
     def get(self):
-        user_id = request.cookies.get('user_id')
-        user = User.query.filter(User.id == user_id).first()
+        print(session.get('user_id'),"this is the session data")
+        user = User.query.filter(User.id == session.get('user_id')).first()
         if user:
             return user.to_dict(), 200
         else:

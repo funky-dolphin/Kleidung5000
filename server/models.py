@@ -5,7 +5,7 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.ext.hybrid import hybrid_property
 from config import bcrypt, db, app
 
-# app.secret_key = b'\xfe\x97\xb3\xc2h\x0b\xd5\xb7\xbbIR\x80b?\xca\xb0'
+app.secret_key = 'sick key bro'
 
 class User(db.Model, SerializerMixin):
     __tablename__='users'

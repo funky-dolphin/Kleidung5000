@@ -3,7 +3,7 @@ from faker import Faker
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app import app
-from models import db, User, Item, Type, SubType, Size, Brand, Transaction, Message
+from models import db, User, Item, Type, SubType, Size, Brand, Transaction, Message, FavoriteItem
 
 with app.app_context():
 
@@ -178,6 +178,11 @@ with app.app_context():
     m3=Message(user_1=1, user_2=3, message="brett is a dick")
     messages=[m1,m2,m3]
 
+    f1 = FavoriteItem(item_id=1, user_id=5)
+    f2=FavoriteItem(item_id=2, user_id=5)
+    f3=FavoriteItem(item_id=3,user_id=5)
+    favoriteitems=[f1,f2,f3]
+
     db.session.add_all(users)
     db.session.add_all(items)
     db.session.add_all(types)
@@ -186,6 +191,7 @@ with app.app_context():
     db.session.add_all(brands)
     db.session.add_all(transactions)
     db.session.add_all(messages)
+    db.session.add_all(favoriteitems)
     db.session.commit()
 
     print("Seeding done!")

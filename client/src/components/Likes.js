@@ -1,35 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import CardItem from "./CardItem";
 import "../styles.css";
 
-const LikesPage = () => {
-  const items = new Array(16).fill({
-    image: "https://via.placeholder.com/150",
-    brand: "Sample Brand",
-    title: "Sample Item",
-    description: "Sample Description",
-    size: "M",
-    condition: 8,
-  });
+const LikesPage = ({user}) => {
+const[favorites, setFavorites]=useState([])
+
+  // let params = useParams()
+  // console.log(params)
+  useEffect(()=>{
+    if(user && user.id) {
+    fetch(`http://127.0.0.1:5555/favoriteitemsbyowner/${user.id}`)
+    .then(res=>res.json())
+    .then(data=>setFavorites(data));
+    }
+  },[user])
+  console.log(setFavorites)
 
   return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">
       <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
         *LoggedIn User's* Likes
       </h3>
-      <div className="d-flex flex-wrap justify-content-center">
-        {items.map((item, index) => (
+      <ul className="d-flex flex-wrap justify-content-center">
+        
           <CardItem
-            key={index}
-            image={item.image}
-            brand={item.brand}
-            title={item.title}
-            description={item.description}
-            size={item.size}
-            condition={item.condition}
+          item = {favorites}
+          key={favorites.id}
+          image={favorites.image}
+          brand={favorites.brand}
+          name={favorites.name}
+          size={favorites.size}
+          condition={favorites.condition}
+          price = {favorites.price}
           />
-        ))}
-      </div>
+      
+      </ul>
     </div>
   );
 };

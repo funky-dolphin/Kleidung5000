@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 
+
 function Login({setUser}) {
 
   const[formData, setFormdata] = useState({
@@ -17,18 +18,28 @@ function handleChange(e) {
 }
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("http://127.0.0.1:5555/login", {
-      method: "POST",   
+    console.log(formData)
+    fetch("/login", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
       credentials: 'include'
     })
-      .then((r) => r.json())
-      .then((data) => setUser(data))
-      .catch(e=>console.log(e));
-  }
+      .then((r) => {
+        if(!r.ok) {
+          throw new Error('Error: ${r.status} - ${r.statusText}');
+        }
+        return r.json();
+      })
+      .then((data) => 
+        setUser(data))
+      .catch((error)=>{
+        console.error("error during fetch:", error);
+      });
+    }
+  
   return (
     <Container>
       <Row className="justify-content-md-center">
