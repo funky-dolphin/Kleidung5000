@@ -204,7 +204,7 @@ function Navigation({ user, setUser, search, setSearch, items, setItems }) {
           </Nav>
           <Form className="navbar-form">
             <div className="d-flex align-items-center">
-              
+            {user && (
               <Button
                 variant="outline-primary"
                 onClick={() => navigate("/additem")}
@@ -212,6 +212,7 @@ function Navigation({ user, setUser, search, setSearch, items, setItems }) {
               >
                 Add an Item
               </Button>
+            )}
               
               {user == null &&(
               <Button
