@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CardItem from "./CardItem";
 import "../styles.css";
+import styles from "./Marketplace.module.css";
 
 const LikesPage = ({ user }) => {
   const [favorites, setFavorites] = useState([]);
@@ -21,11 +22,11 @@ const LikesPage = ({ user }) => {
 
   return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">
-      <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
+      <h3 className={styles.glitch} data-text={user.username + "ITEMS"}>
         {user ? `${user.username}'s Items` : "Please log in to view your likes"}
       </h3>
       {favorites.length === 0 && user && (
-        <h4 style={{ marginBottom: "20px", color: "whitesmoke" }}>
+        <h4 className={styles.glitch} data-text="Go buy items! It's free!">
           Go buy items! It's free!
         </h4>
       )}

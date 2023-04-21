@@ -3,6 +3,7 @@ import { Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../styles.css";
 import CardItem from "./CardItem";
+import styles from "./Navbar.module.css";
 
 function Shop({ setItems }) {
   const navigate = useNavigate();
@@ -34,9 +35,11 @@ function Shop({ setItems }) {
     <span>
       <div className="d-flex flex-column align-items-center pt-5 text-center">
         <div className="mb-3">
-          <Button onClick={handleShopClick}>Shop Items</Button>
+          <Button variant="success" onClick={handleShopClick}>
+            Shop Items
+          </Button>
         </div>
-        <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
+        <h3 className={styles.glitch} data-text="KLEIDUNG'S Selects">
           KLEIDUNG'S Selects
         </h3>
         {

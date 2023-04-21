@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardItem from "./CardItem";
 import "../styles.css";
+import styles from "./Marketplace.module.css";
 
 function ShopPage({ items, setItems, item }) {
   const [brands, setBrands] = useState([]);
@@ -25,8 +26,8 @@ function ShopPage({ items, setItems, item }) {
 
   return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">
-      <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
-        KLEIDUNG Marketplace
+      <h3 className={styles.glitch} data-text="KLEIDUNG MARKTPLATZ">
+        KLEIDUNG MARKTPLATZ"
       </h3>
       {
         <ul className="d-flex flex-wrap justify-content-center">
@@ -36,6 +37,7 @@ function ShopPage({ items, setItems, item }) {
               <CardItem
                 item={item}
                 key={item.id}
+                xr
                 image={item.image}
                 brand={getBrandNameById(item.brand_id)}
                 name={item.name}

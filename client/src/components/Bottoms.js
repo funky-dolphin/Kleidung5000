@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import CardItem from "./CardItem";
 import "../styles.css";
+import styles from "./Marketplace.module.css";
 
 function Bottoms({ search, setSearch, items, setItems }) {
   useEffect(() => {
@@ -13,8 +14,8 @@ function Bottoms({ search, setSearch, items, setItems }) {
   );
   return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">
-      <h3 style={{ marginBottom: "20px", color: "whitesmoke" }}>
-        KLEIDUNG Marketplace
+      <h3 className={styles.glitch} data-text="KLEIDUNG MARKTPLATZ">
+        KLEIDUNG MARKTPLATZ
       </h3>
       {
         <ul className="d-flex flex-wrap justify-content-center">
