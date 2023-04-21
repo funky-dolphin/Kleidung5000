@@ -34,6 +34,7 @@ function App() {
   const [types, setTypes] = useState([]);
   const [subtypes, setSubTypes] = useState([]);
   const [sizes, setSizes] = useState([]);
+  const [selectedItem, setSelectedItem] = useState({});
 
   useEffect(() => {
     fetch("http://127.0.0.1:5555/brands")
@@ -99,7 +100,7 @@ function App() {
           />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/likes" element={<Likes user={user} />} />
+          <Route path="/likes" element={<Likes user={user} items={items} />} />
           <Route
             path="/transactions"
             element={<TransactionList user={user} />}
@@ -280,7 +281,19 @@ function App() {
               />
             }
           />
-          <Route path="/items/:id" element={<SelectedItem />} />
+          <Route path="/items/:id" element={<SelectedItem user={user} />} />
+          <Route
+            path="/additem"
+            element={
+              <AddItemForm
+                brands={brands}
+                types={types}
+                subtypes={subtypes}
+                sizes={sizes}
+                user={user}
+              />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

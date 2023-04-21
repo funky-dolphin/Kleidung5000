@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CardItem from "./CardItem";
 import "../styles.css";
 
-function ShopPage({ items, setItems }) {
+function ShopPage({ items, setItems, item }) {
   const [brands, setBrands] = useState([]);
 
   useEffect(() => {
