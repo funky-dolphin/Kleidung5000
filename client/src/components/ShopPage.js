@@ -3,7 +3,7 @@ import CardItem from "./CardItem";
 import "../styles.css";
 import styles from "./Marketplace.module.css";
 
-function ShopPage({ items, setItems, item }) {
+function ShopPage({ search, items, setItems, item }) {
   const [brands, setBrands] = useState([]);
 
   useEffect(() => {
@@ -23,15 +23,18 @@ function ShopPage({ items, setItems, item }) {
     console.log("Brand:", brand);
     return brand ? brand.brand : "";
   };
-
+  
+  const searchItems = items.filter((item) =>
+  item.name.toLowerCase().includes(search.toLowerCase())
+);
   return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">
       <h3 className={styles.glitch} data-text="KLEIDUNG MARKTPLATZ">
-        KLEIDUNG MARKTPLATZ"
+        KLEIDUNG MARKTPLATZ
       </h3>
       {
         <ul className="d-flex flex-wrap justify-content-center">
-          {items.map((item) => {
+          {searchItems.map((item) => {
             console.log(item);
             return (
               <CardItem
