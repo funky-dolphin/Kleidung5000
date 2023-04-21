@@ -1,14 +1,8 @@
 """empty message
 
-<<<<<<<< HEAD:server/migrations/versions/a03c6a76bb55_.py
-Revision ID: a03c6a76bb55
+Revision ID: 375b95072680
 Revises: 
-Create Date: 2023-04-20 14:41:46.405060
-========
-Revision ID: e4a9b5e1451d
-Revises: 
-Create Date: 2023-04-20 11:16:39.660433
->>>>>>>> origin/Nick1:server/migrations/versions/e4a9b5e1451d_.py
+Create Date: 2023-04-20 20:05:04.667243
 
 """
 from alembic import op
@@ -16,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<<< HEAD:server/migrations/versions/a03c6a76bb55_.py
-revision = 'a03c6a76bb55'
-========
-revision = 'e4a9b5e1451d'
->>>>>>>> origin/Nick1:server/migrations/versions/e4a9b5e1451d_.py
+revision = '375b95072680'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -104,7 +94,11 @@ def upgrade():
     sa.Column('seller_id', sa.Integer(), nullable=True),
     sa.Column('price', sa.Float(), nullable=True),
     sa.Column('item_id', sa.Integer(), nullable=True),
+    sa.Column('item_name', sa.String(), nullable=True),
+    sa.Column('image', sa.String(), nullable=True),
+    sa.ForeignKeyConstraint(['image'], ['items.image'], name=op.f('fk_transactions_image_items')),
     sa.ForeignKeyConstraint(['item_id'], ['items.id'], name=op.f('fk_transactions_item_id_items')),
+    sa.ForeignKeyConstraint(['item_name'], ['items.name'], name=op.f('fk_transactions_item_name_items')),
     sa.ForeignKeyConstraint(['price'], ['items.price'], name=op.f('fk_transactions_price_items')),
     sa.ForeignKeyConstraint(['seller_id'], ['users.id'], name=op.f('fk_transactions_seller_id_users')),
     sa.PrimaryKeyConstraint('id')
