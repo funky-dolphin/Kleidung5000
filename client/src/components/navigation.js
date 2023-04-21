@@ -14,6 +14,7 @@ import profileImage from "../testpp.png";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import styles from "./Navbar.module.css";
 
 function Navigation({ user, setUser, search, setSearch, items, setItems }) {
   const [showOuterwear, setShowOuterwear] = useState(false);
@@ -73,11 +74,11 @@ function Navigation({ user, setUser, search, setSearch, items, setItems }) {
       const response = await fetch("/logout", {
         method: "POST",
       });
-  
+
       if (!response.ok) {
         throw new Error(`Logout failed with status: ${response.status}`);
       }
-  
+
       setUser(null);
       window.location.reload();
     } catch (error) {
@@ -91,10 +92,16 @@ function Navigation({ user, setUser, search, setSearch, items, setItems }) {
 
   return (
     <div className="App">
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand onClick={handleHomeClick} href="#home">
+      <Navbar bg="dark" expand="lg" variant="dark">
+        <Navbar.Brand
+          onClick={handleHomeClick}
+          href="#home"
+          className={styles.glitch}
+          data-text="KLEIDUNG5000"
+        >
           KLEIDUNG5000
         </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
@@ -204,52 +211,52 @@ function Navigation({ user, setUser, search, setSearch, items, setItems }) {
           </Nav>
           <Form className="navbar-form">
             <div className="d-flex align-items-center">
-            {user && (
-              <Button
-                variant="outline-primary"
-                onClick={() => navigate("/additem")}
-                className="add-item-button"
-              >
-                Add an Item
-              </Button>
-            )}
-              
-              {user == null &&(
-              <Button
-                variant="outline-primary"
-                onClick={handleLoginClick}
-                className="login-button"
-              >
-                Login
-              </Button>
+              {user && (
+                <Button
+                  variant="outline-success"
+                  onClick={() => navigate("/additem")}
+                  className="add-item-button"
+                >
+                  Add an Item
+                </Button>
               )}
-              {user &&(
-              <Button
-                variant="outline-primary"
-                onClick={handleLogout}
-                className="logout-button"
-              >
-                Logout
-              </Button>
-              )}
-              {user === null && (
-              <Button
-                variant="outline-primary"
-                onClick={handleRegisterClick}
-                className="login-button"
-              >
-                Register
-              </Button>
+
+              {user == null && (
+                <Button
+                  variant="outline-success"
+                  onClick={handleLoginClick}
+                  className="login-button"
+                >
+                  Login
+                </Button>
               )}
               {user && (
-              <Button
-                variant="outline-primary"
-                onClick={handleTransactionsClick}
-                className="transactions-button"
-                user={user}
-              >
-                Transactions
-              </Button>
+                <Button
+                  variant="outline-success"
+                  onClick={handleLogout}
+                  className="logout-button"
+                >
+                  Logout
+                </Button>
+              )}
+              {user === null && (
+                <Button
+                  variant="outline-success"
+                  onClick={handleRegisterClick}
+                  className="login-button"
+                >
+                  Register
+                </Button>
+              )}
+              {user && (
+                <Button
+                  variant="outline-success"
+                  onClick={handleTransactionsClick}
+                  className="transactions-button"
+                  user={user}
+                >
+                  Transactions
+                </Button>
               )}
             </div>
             <FormControl
@@ -257,12 +264,16 @@ function Navigation({ user, setUser, search, setSearch, items, setItems }) {
               placeholder="Search kleidung"
               value={search}
               onChange={handleSearch}
+              style={{ backgroundColor: "#212529", color: "#8ffe09" }}
+              className="green-outline"
             />
-            <FontAwesomeIcon
-              className="heart-icon"
-              icon={faHeart}
-              onClick={handleLikesClick}
-            />
+            {user && (
+              <FontAwesomeIcon
+                className="heart-icon"
+                icon={faHeart}
+                onClick={handleLikesClick}
+              />
+            )}
           </Form>
           <Image
             className="account-image"

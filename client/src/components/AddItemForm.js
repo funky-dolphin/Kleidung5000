@@ -188,7 +188,7 @@ function AddItemForm({ brands, types, subtypes, sizes, user }) {
                   />
                 </Form.Group>
 
-                <Button className="add-item-form-button" type="submit">
+                <Button variant="success" className="w-100 mt-3" type="submit">
                   Add Item
                 </Button>
               </Form>
