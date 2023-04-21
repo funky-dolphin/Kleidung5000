@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
-function SelectedItem() {
+function SelectedItem({ user }) {
   const [selectedItem, setSelectedItem] = useState({});
   const [brands, setBrands] = useState([]);
   const [sizes, setSizes] = useState([]);
@@ -98,8 +98,26 @@ function SelectedItem() {
             .then((res) => res.json())
             .then((data) => {
               console.log("item Purchased:", data);
-              navigate("/");
+              fetch('/transactions', {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  image: selectedItem.image,
+                  buyer_id : user.id,
+                  seller_id: selectedItem.owner_id,
+                  price: selectedItem.price,
+                  item_id: selectedItem.id,
+                  item_name: selectedItem.name,
+                }),
+              })
+              .then((transactionResponse) => transactionResponse.json())
+              .then((transactionData) => {
+                console.log("Transaction Created:", transactionData);
+                navigate("/");
               alert("Item Purchased, Enjoy your Kleidung!");
+              })
             });
         } else {
           console.log("User cannot buy their own item.");
@@ -110,6 +128,59 @@ function SelectedItem() {
         console.error("Error", error);
       });
   };
+
+  const handleDisableSale = () => {
+    fetch("/check_session")
+      .then((response) => response.json())
+      .then((user) => {
+        if (user.id === selectedItem.owner_id) {
+          fetch(`/items/${selectedItem.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ for_sale: false}),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log("Item not for sale:", data);
+              navigate("/");
+              alert("Item Sale Disabled");
+         
+            });
+        } 
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const handleEnableeSale = () => {
+    fetch("/check_session")
+      .then((response) => response.json())
+      .then((user) => {
+        if (user.id === selectedItem.owner_id) {
+          fetch(`/items/${selectedItem.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ for_sale: true}),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log("Item IS for sale:", data);
+              navigate("/");
+              alert("Item Sale Enabled");
+         
+            });
+        } 
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+  
 
   return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">
@@ -129,18 +200,32 @@ function SelectedItem() {
           color={selectedItem.color}
         />
         <div className="d-flex flex-column align-items-center m1-3">
-          <button onClick={handleBuyItem} className="btn btn-primary mb-2">
-            Buy Now
-          </button>
+          {user && user.id !== selectedItem.owner_id && selectedItem.for_sale == true ?(
+            <button onClick={handleBuyItem} className="btn btn-primary mb-2">
+              Buy Now
+            </button>
+          ) : null}
+          {user && user.id == selectedItem.owner_id ?(
           <button onClick={handleDeleteItem} className="btn btn-danger mb-2">
             Delete Item
           </button>
+          ) : null}
           {/* <button
             className={`btn ${isLiked ? "text-danger" : "text-secondary"}`}
             onClick={handleAddToLikes}
           >
             <i className="fas fa-heart"></i>
           </button> */}
+          {user && selectedItem.for_sale == true && user.id == selectedItem.owner_id ? (
+          <button onClick = {handleDisableSale} className="btn btn-secondary mb-2">
+            Disable Sell
+          </button>
+          ) : false }
+          {user && selectedItem.for_sale == false && user.id == selectedItem.owner_id ? (
+          <button onClick = {handleEnableeSale} className="btn btn-light mb-2">
+            Enable Sell
+          </button>
+          ) : false }
           <FontAwesomeIcon
             className="liked-icon"
             style={{
@@ -150,6 +235,9 @@ function SelectedItem() {
             icon={faHeart}
             // onClick={handleAddToLikes}
           />
+          {user && user.id !== selectedItem.owner_id && selectedItem.for_sale == false ?(
+          <h3 style = {{color : "white", fontSize: "16px" }}>Item not for sale by owner</h3>
+          ): null }
         </div>
       </ul>
     </div>

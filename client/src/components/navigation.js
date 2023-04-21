@@ -258,11 +258,13 @@ function Navigation({ user, setUser, search, setSearch, items, setItems }) {
               value={search}
               onChange={handleSearch}
             />
+            {user &&(
             <FontAwesomeIcon
               className="heart-icon"
               icon={faHeart}
               onClick={handleLikesClick}
             />
+            )}
           </Form>
           <Image
             className="account-image"
