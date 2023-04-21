@@ -211,13 +211,15 @@ function Navigation({ user, setUser, search, setSearch, items, setItems }) {
           </Nav>
           <Form className="navbar-form">
             <div className="d-flex align-items-center">
-              <Button
-                variant="outline-success"
-                onClick={() => navigate("/additem")}
-                className="add-item-button"
-              >
-                Add an Item
-              </Button>
+              {user && (
+                <Button
+                  variant="outline-success"
+                  onClick={() => navigate("/additem")}
+                  className="add-item-button"
+                >
+                  Add an Item
+                </Button>
+              )}
 
               {user == null && (
                 <Button
@@ -265,11 +267,13 @@ function Navigation({ user, setUser, search, setSearch, items, setItems }) {
               style={{ backgroundColor: "#212529", color: "#8ffe09" }}
               className="green-outline"
             />
-            <FontAwesomeIcon
-              className="heart-icon"
-              icon={faHeart}
-              onClick={handleLikesClick}
-            />
+            {user && (
+              <FontAwesomeIcon
+                className="heart-icon"
+                icon={faHeart}
+                onClick={handleLikesClick}
+              />
+            )}
           </Form>
           <Image
             className="account-image"
