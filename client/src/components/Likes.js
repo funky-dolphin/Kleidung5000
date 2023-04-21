@@ -22,7 +22,7 @@ const LikesPage = ({ user }) => {
 
   return (
     <div className="d-flex flex-column align-items-center pt-5 text-center">
-      <h3 className={styles.glitch} data-text={user.username + "ITEMS"}>
+      <h3 className={styles.glitch} data-text={user.username +"'s" + " ITEMS"}>
         {user ? `${user.username}'s Items` : "Please log in to view your likes"}
       </h3>
       {favorites.length === 0 && user && (
